@@ -19,7 +19,7 @@ Future<void> main(List<String> arguments) async {
     ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output.')
     ..addFlag('quiet', abbr: 'q', help: 'Suppress output (quiet mode).')
     ..addFlag('help', abbr: 'h', help: 'Show this help message.')
-    ..addFlag('version', abbr: 'v', help: 'Show version information.');
+    ..addFlag('version', help: 'Show version information.');
 
   final argResults = parser.parse(arguments);
 
