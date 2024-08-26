@@ -12,8 +12,13 @@ class FlutterBuilder {
   Future<int> buildApp() async {
     final mode = buildMode.name;
     final process = await Process.start(
-      'cmd',
-      ['/c', 'flutter', 'build', 'windows', '--$mode'],
+      "flutter",
+      [
+        'build',
+        'windows',
+        '--$mode',
+      ],
+      runInShell: true,
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     );
     return process.exitCode;

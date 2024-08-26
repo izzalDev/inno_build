@@ -39,6 +39,7 @@ class AppLogic {
     }
     await _handleAppId();
     await _checkAndInstallInnoSetup();
+    await _checkAndDownloadVccRedist();
     await _buildFlutterApp();
     await _buildInnoSetupScript();
     await _compileInnoSetupScript();
@@ -86,6 +87,26 @@ class AppLogic {
     }
   }
 
+  Future<void> _checkAndDownloadVccRedist() async {
+    spinner.start('Checking Visual C++ 2015-2022 Redistributable...');
+    if (File(vcRedistPath).existsSync()) {
+      spinner.success(
+          'Visual C++ 2015-2022 Redistributable is already donwloaded.');
+    } else {
+      spinner.start('Downloading Visual C++ 2015-2022 Redistributable...');
+      if (argResults['verbose']) {
+        spinner.stopAndPersist();
+      }
+      final download = await dependencyManager.ensureVcredistDownloaded();
+      if (download == 0) {
+        spinner.success(
+            'Downloaded Visual C++ 2015-2022 Redistributable successfully.');
+      } else {
+        spinner.fail('Failed to download Visual C++ 2015-2022 Redistributable');
+      }
+    }
+  }
+
   Future<void> _downloadInnoSetup() async {
     spinner.start('Downloading Inno Setup...');
     final download = await dependencyManager.ensureInnoSetupDownloaded();
@@ -99,9 +120,6 @@ class AppLogic {
 
   Future<void> _buildFlutterApp() async {
     spinner.start('Building Flutter Windows application...');
-    if (argResults['verbose']) {
-      spinner.stopAndPersist();
-    }
     final exitCode = await flutterBuilder.buildApp();
     if (exitCode == 0) {
       spinner.success('Built ${buildMode.buildPath}\\${Config.execName}.');

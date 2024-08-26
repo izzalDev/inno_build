@@ -8,17 +8,18 @@ class DependencyManager {
 
   DependencyManager({this.verbose = false});
 
-  Future<Process?> ensureVcredistDownloaded() async {
+  Future<int> ensureVcredistDownloaded() async {
     // Implementasi untuk memeriksa dan mendownload vcredist
     if (!File(vcRedistPath).existsSync()) {
       final process = await Process.start(
         'curl',
         ['-L', vcRedistUrl, '-o', vcRedistPath],
+        runInShell: true,
         mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       );
-      return process;
+      return process.exitCode;
     }
-    return null;
+    return 0;
   }
 
   Future<int> ensureInnoSetupDownloaded() async {
@@ -26,6 +27,7 @@ class DependencyManager {
       final process = await Process.start(
         'curl',
         ['-L', innoSetupUrl, '-o', innoSetupInstallerPath],
+        runInShell: true,
         mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       );
       return process.exitCode;
