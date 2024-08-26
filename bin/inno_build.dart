@@ -23,6 +23,8 @@ Future<void> main(List<String> arguments) async {
 
   final argResults = parser.parse(arguments);
 
+  stdout.writeln(welcomeMessage);
+
   if (argResults['help']) {
     print(helpMessage);
     return;
@@ -35,7 +37,6 @@ Future<void> main(List<String> arguments) async {
 
   final verbose = argResults['verbose'];
   final quiet = argResults['quiet'];
-  print(verbose);
 
   if (verbose && quiet) {
     print('Error: --verbose and --quiet cannot be used together.');
@@ -62,12 +63,12 @@ Future<void> main(List<String> arguments) async {
     buildMode: buildMode,
   );
 
-  // try {
+  try {
     await appLogic.run();
-  // } catch (e) {
-  //   print(e);
-  //   exit(64); // Exit code for usage error
-  // }
+  } catch (e) {
+    print(e);
+    exit(64); // Exit code for usage error
+  }
 }
 
 BuildMode _determineBuildMode(ArgResults argResults) {

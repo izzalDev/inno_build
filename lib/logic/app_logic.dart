@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:cli_spin/cli_spin.dart';
@@ -34,12 +33,13 @@ class AppLogic {
 
   Future<void> run() async {
     _validateFlags();
+    if (argResults['install-inno']) {
+      await _checkAndInstallInnoSetup();
+      exit(0);
+    }
     await _handleAppId();
     await _checkAndInstallInnoSetup();
     await _buildFlutterApp();
-    if (argResults['install-inno']) {
-      await _installInnoSetup();
-    }
     await _buildInnoSetupScript();
     await _compileInnoSetupScript();
   }

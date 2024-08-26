@@ -31,3 +31,8 @@ Global Options:
   -q, --quiet               Suppress output (quiet mode).
   -i, --install             Install Inno Setup if not already installed.
 ''';
+
+const String welcomeMessage = '''
+╔════════════════════════════════════════════════════════════════════╗
+║                     ✨✨   INNO BUILD   ✨✨                       ║ 
+╚════════════════════════════════════════════════════════════════════╝''';

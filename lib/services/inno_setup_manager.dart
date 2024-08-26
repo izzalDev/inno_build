@@ -62,10 +62,10 @@ class InnoSetupManager {
   }
 
   Future<int> compileInnoSetupScript() async {
-
+    List<String> args = ['-Q', '${mode.installerPath}\\setup_script.iss'];
     final process = await Process.start(
       innoCompilerPath,
-      ['${mode.installerPath}\\setup_script.iss'],
+      verbose ? args.sublist(1) : args,
       runInShell: true,
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     );
