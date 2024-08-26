@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:cli_spin/cli_spin.dart';
@@ -39,20 +40,23 @@ class AppLogic {
     if (argResults['install-inno']) {
       await _installInnoSetup();
     }
-    await _buildAndCompileInnoSetupScript();
+    await _buildInnoSetupScript();
+    await _compileInnoSetupScript();
   }
 
   void _validateFlags() {
     if (argResults['debug'] && argResults['release']) {
-      throw ArgumentError('Error: --release and --debug cannot be used together.');
+      throw ArgumentError(
+          'Error: --release and --debug cannot be used together.');
     }
     if (argResults['verbose'] && argResults['quiet']) {
-      throw ArgumentError('Error: --verbose and --quiet cannot be used together.');
+      throw ArgumentError(
+          'Error: --verbose and --quiet cannot be used together.');
     }
   }
 
   Future<void> _handleAppId() async {
-    if (argResults['app-id']!=null) {
+    if (argResults['app-id'] != null) {
       spinner.start('Generating new App ID...');
       try {
         final newAppId = await appIdService.updateAppId();
@@ -78,37 +82,31 @@ class AppLogic {
     if (File(innoCompilerPath).existsSync()) {
       spinner.success('Inno Setup is already installed.');
     } else {
-      await _downloadAndInstallInnoSetup();
+      await _installInnoSetup();
     }
   }
 
-  Future<void> _downloadAndInstallInnoSetup() async {
+  Future<void> _downloadInnoSetup() async {
     spinner.start('Downloading Inno Setup...');
-    try {
-      await dependencyManager.ensureInnoSetupDownloaded();
+    final download = await dependencyManager.ensureInnoSetupDownloaded();
+    if (download == 0) {
       spinner.success('Downloaded Inno Setup successfully.');
-    } catch (e) {
+      spinner.start('Installing Inno Setup...');
+    } else {
       spinner.fail('Failed to download Inno Setup');
-      stderr.writeln(e);
-    }
-    spinner.start('Installing Inno Setup...');
-    try {
-      await innoSetupManager.ensureInnoSetupInstalled();
-      spinner.success('Installed Inno Setup successfully.');
-    } catch (e) {
-      spinner.fail('Failed to install Inno Setup');
-      stderr.writeln(e);
     }
   }
 
   Future<void> _buildFlutterApp() async {
     spinner.start('Building Flutter Windows application...');
-    try {
-      await flutterBuilder.buildApp();
+    if (argResults['verbose']) {
+      spinner.stopAndPersist();
+    }
+    final exitCode = await flutterBuilder.buildApp();
+    if (exitCode == 0) {
       spinner.success('Built ${buildMode.buildPath}\\${Config.execName}.');
-    } catch (e) {
+    } else {
       spinner.fail('Failed to build Flutter application');
-      stderr.writeln(e);
     }
   }
 
@@ -123,11 +121,17 @@ class AppLogic {
         stderr.writeln(e);
       }
     } else {
-      await _downloadAndInstallInnoSetup();
+      await _downloadInnoSetup();
+      final install = await innoSetupManager.ensureInnoSetupInstalled();
+      if (install == 0) {
+        spinner.success('Installed Inno Setup successfully.');
+      } else {
+        spinner.fail('Failed to install Inno Setup');
+      }
     }
   }
 
-  Future<void> _buildAndCompileInnoSetupScript() async {
+  Future<void> _buildInnoSetupScript() async {
     spinner.start('Building Inno Setup script...');
     try {
       final file = await innoSetupManager.buildInnoSetupScript();
@@ -136,14 +140,18 @@ class AppLogic {
       spinner.fail('Failed to build Inno Setup script');
       stderr.writeln(e);
     }
+  }
 
+  Future<void> _compileInnoSetupScript() async {
     spinner.start('Compiling Inno Setup script...');
-    try {
-      await innoSetupManager.compileInnoSetupScript();
+    if (argResults['verbose']) {
+      spinner.stopAndPersist();
+    }
+    final exitCode = await innoSetupManager.compileInnoSetupScript();
+    if (exitCode == 0) {
       spinner.success('Compiled Inno Setup script successfully.');
-    } catch (e) {
+    } else {
       spinner.fail('Failed to compile Inno Setup script');
-      stderr.writeln(e);
     }
   }
 }

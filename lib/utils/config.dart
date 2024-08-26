@@ -23,13 +23,21 @@ class Config {
   }
 
   static String? get bundleId {
-    final file = File(join('windows', 'runner', 'Runner.rc'));
-    final lines = file.readAsLinesSync();
-    final line = lines.firstWhere(
-      (line) => line.contains('VALUE "InternalName"'),
-      orElse: () => '',
-    )..split('VALUE "InternalName", "')[1].split('"')[0].trim();
-    return line;
+    try {
+      final file = File(join('windows', 'runner', 'Runner.rc'));
+      return file
+          .readAsLinesSync()
+          .firstWhere(
+            (line) => line.contains('VALUE "InternalName"'),
+            orElse: () => '',
+          )
+          .split('VALUE "InternalName", "')[1]
+          .split('"')[0]
+          .trim();
+    } catch (e) {
+      print('Error reading file: $e');
+      return null;
+    }
   }
 
   static get execName {

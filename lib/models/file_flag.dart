@@ -132,6 +132,6 @@ enum FileFlag {
   @override
   String toString() {
     // Returns the name of the enum value as a string.
-    return name;
+    return name.toLowerCase();
   }
 }

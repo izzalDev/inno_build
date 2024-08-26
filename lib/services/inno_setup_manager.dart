@@ -9,6 +9,7 @@ import 'package:inno_build/models/run_flag.dart';
 import 'package:inno_build/utils/config.dart';
 import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/iss_generator.dart';
+import 'package:path/path.dart';
 
 class InnoSetupManager {
   final bool quiet;
@@ -54,33 +55,47 @@ class InnoSetupManager {
       );
 
     final script = generator.toString();
-    final scriptFile = File('${mode.installerPath}/setup_script.iss');
+    final scriptPath = join(mode.installerPath, 'setup_script.iss');
+    final scriptFile = File(scriptPath);
     await scriptFile.writeAsString(script);
     return scriptFile;
   }
 
-  Future<Process> compileInnoSetupScript() async {
+  Future<int> compileInnoSetupScript() async {
+
     final process = await Process.start(
       innoCompilerPath,
-      ['"${mode.installerPath}\\setup_script.iss"'],
+      ['${mode.installerPath}\\setup_script.iss'],
+      runInShell: true,
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     );
-    return process;
+    return process.exitCode;
   }
 
-  Future<Process?> ensureInnoSetupInstalled() async {
+  Future<int> ensureInnoSetupInstalled() async {
     if (!File(innoCompilerPath).existsSync()) {
+      final args = quiet
+          ? [
+              '/c',
+              innoSetupInstallerPath,
+              '/VERYSILENT',
+              '/SUPPRESSMSGBOXES',
+              '/NORESTART',
+              '/SP-',
+            ]
+          : [
+              '/c',
+              innoSetupInstallerPath,
+            ];
+
       final process = await Process.start(
         'cmd',
-        [
-          '/c',
-          innoSetupInstallerPath,
-          if (quiet) '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-',
-        ],
+        args,
         mode: quiet ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       );
-      return process;
+
+      return await process.exitCode;
     }
-    return null;
+    return 0;
   }
 }

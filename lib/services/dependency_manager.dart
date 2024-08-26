@@ -21,15 +21,15 @@ class DependencyManager {
     return null;
   }
 
-  Future<Process?> ensureInnoSetupDownloaded() async {
+  Future<int> ensureInnoSetupDownloaded() async {
     if (!File(innoSetupInstallerPath).existsSync()) {
       final process = await Process.start(
         'curl',
         ['-L', innoSetupUrl, '-o', innoSetupInstallerPath],
         mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       );
-      return process;
+      return process.exitCode;
     }
-    return null;
+    return 0;
   }
 }

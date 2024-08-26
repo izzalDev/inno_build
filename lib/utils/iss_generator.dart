@@ -51,7 +51,7 @@ class IssGenerator {
     final destDir = destination ?? Inno.app;
     if (flags != null) {
       _files.writeln(
-          'Source: "$source"; DestDir: "$destDir"; Flags: ${flags.join()}');
+          'Source: "$source"; DestDir: "$destDir"; Flags: ${flags.join(' ')}');
     } else {
       _files.writeln('Source: "$source"; DestDir: "$destDir"');
     }

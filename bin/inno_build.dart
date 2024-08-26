@@ -35,6 +35,7 @@ Future<void> main(List<String> arguments) async {
 
   final verbose = argResults['verbose'];
   final quiet = argResults['quiet'];
+  print(verbose);
 
   if (verbose && quiet) {
     print('Error: --verbose and --quiet cannot be used together.');
