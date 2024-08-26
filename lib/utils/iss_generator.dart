@@ -45,9 +45,9 @@ class IssGenerator {
         'Name: "${language.name}"; MessagesFile: "compiler:${language.file}"');
   }
 
-  void addTask() {
-    _task.writeln();
-  }
+  // void addTask() {
+  //   _task.writeln();
+  // }
 
   void addFiles(String source, {String? destination, List<FileFlag>? flags}) {
     final destDir = destination ?? Inno.app;
