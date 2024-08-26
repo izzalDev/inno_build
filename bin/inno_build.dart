@@ -23,18 +23,18 @@ Future<void> main(List<String> arguments) async {
 
   final argResults = parser.parse(arguments);
 
-  if (argResults['help'] as bool) {
+  if (argResults['help']) {
     print(helpMessage);
     return;
   }
 
-  if (argResults['version'] as bool) {
+  if (argResults['version']) {
     print('Inno Build CLI v1.0.0');
     return;
   }
 
-  final verbose = argResults['verbose'] as bool;
-  final quiet = argResults['quiet'] as bool;
+  final verbose = argResults['verbose'];
+  final quiet = argResults['quiet'];
 
   if (verbose && quiet) {
     print('Error: --verbose and --quiet cannot be used together.');
@@ -61,17 +61,17 @@ Future<void> main(List<String> arguments) async {
     buildMode: buildMode,
   );
 
-  try {
+  // try {
     await appLogic.run();
-  } catch (e) {
-    print(e);
-    exit(64); // Exit code for usage error
-  }
+  // } catch (e) {
+  //   print(e);
+  //   exit(64); // Exit code for usage error
+  // }
 }
 
 BuildMode _determineBuildMode(ArgResults argResults) {
-  if (argResults['debug'] as bool) {
-    if (argResults['release'] as bool) {
+  if (argResults['debug']) {
+    if (argResults['release']) {
       print('Error: --release and --debug cannot be used together.');
       exit(64); // Exit code for usage error
     }

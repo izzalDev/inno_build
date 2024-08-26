@@ -36,30 +36,40 @@ class AppLogic {
     await _handleAppId();
     await _checkAndInstallInnoSetup();
     await _buildFlutterApp();
-    if (argResults['install-inno'] as bool) {
+    if (argResults['install-inno']) {
       await _installInnoSetup();
     }
     await _buildAndCompileInnoSetupScript();
   }
 
   void _validateFlags() {
-    if (argResults['debug'] as bool && argResults['release'] as bool) {
+    if (argResults['debug'] && argResults['release']) {
       throw ArgumentError('Error: --release and --debug cannot be used together.');
     }
-    if (argResults['verbose'] as bool && argResults['quiet'] as bool) {
+    if (argResults['verbose'] && argResults['quiet']) {
       throw ArgumentError('Error: --verbose and --quiet cannot be used together.');
     }
   }
 
   Future<void> _handleAppId() async {
-    if (argResults['app-id'] as bool) {
+    if (argResults['app-id']!=null) {
       spinner.start('Generating new App ID...');
-      final newAppId = await appIdService.updateAppId();
-      spinner.success('Generated new App ID: $newAppId');
+      try {
+        final newAppId = await appIdService.updateAppId();
+        spinner.success('Generated new App ID: $newAppId');
+      } catch (e) {
+        spinner.fail('Failed to generate new App ID');
+        stderr.writeln(e);
+      }
     } else {
       spinner.start('Checking App ID...');
-      final appId = await appIdService.ensureAppId();
-      spinner.success('Current App ID: $appId');
+      try {
+        final appId = await appIdService.ensureAppId();
+        spinner.success('Current App ID: $appId');
+      } catch (e) {
+        spinner.fail('Failed to check App ID');
+        stderr.writeln(e);
+      }
     }
   }
 
