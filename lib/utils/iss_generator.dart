@@ -8,7 +8,6 @@ class IssGenerator {
   final StringBuffer _languages = StringBuffer();
   final StringBuffer _task = StringBuffer();
   final StringBuffer _files = StringBuffer();
-  final StringBuffer _registry = StringBuffer();
   final StringBuffer _run = StringBuffer();
 
   IssGenerator({
@@ -22,7 +21,6 @@ class IssGenerator {
     _languages.writeln('[Languages]');
     _task.writeln('[Task]');
     _files.writeln('[Files]');
-    _registry.writeln('[Registry]');
     _run.writeln('[Run]');
     addSetup('AppId', appId);
     addSetup('AppName', appName);
@@ -81,7 +79,6 @@ class IssGenerator {
       ..write(_languages.toString())
       ..write(_task.toString())
       ..write(_files.toString())
-      ..write(_registry.toString())
       ..write(_run.toString());
   }
 
