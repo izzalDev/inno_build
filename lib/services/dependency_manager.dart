@@ -13,9 +13,8 @@ class DependencyManager {
     if (!File(vcRedistPath).existsSync()) {
       final process = await Process.start(
         'curl',
-        ['-L', vcRedistUrl, '-o', vcRedistPath],
+        ['-L','-s', vcRedistUrl, '-o', vcRedistPath],
         runInShell: true,
-        mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       );
       return process.exitCode;
     }
