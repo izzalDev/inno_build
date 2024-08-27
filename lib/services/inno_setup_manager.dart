@@ -42,7 +42,6 @@ class InnoSetupManager {
       ..addRun(
         '${Inno.autopf}\\${Config.appName}\\${Config.execName}',
         flags: [
-          RunFlag.noWait,
           RunFlag.postInstall,
           RunFlag.skipIfSilent,
         ],
