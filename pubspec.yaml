@@ -6,6 +6,9 @@ repository: https://github.com/izzalDev/inno_build
 environment:
   sdk: ^3.4.4
 
+platforms:
+  windows:
+
 dependencies:
   args: ^2.4.2
   cli_spin: ^1.0.1
