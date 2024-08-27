@@ -27,12 +27,12 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: 3.19.0
+          flutter-version: 3.22.3
           
       - name: Install dependencies
         run: |
           cd example
-          dart pub get
+          flutter pub get
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
@@ -48,4 +48,4 @@ jobs:
       - name: Run package
         run: |
           cd example 
-          dart run inno_build -v
+          flutter run inno_build -v
