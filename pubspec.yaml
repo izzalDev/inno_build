@@ -1,5 +1,5 @@
 name: inno_build
-description: A sample command-line application with basic argument parsing.
+description: CLI for building Flutter Windows applications into Windows installer (.exe) using Inno Setup. Automates the installer creation process for easy distribution.
 version: 0.0.1
 repository: https://github.com/izzalDev/inno_build
 
