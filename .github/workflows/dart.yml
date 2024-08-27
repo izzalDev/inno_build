@@ -49,5 +49,5 @@ jobs:
           dart run inno_build -v
       - uses: actions/upload-artifact@v4
         with:
-          path: "D:\\a\\inno_build\\inno_build\\example\build\\windows\\x64\\installer\\Release\\Output\\mysetup.exe"
+          path: "D:\\a\\inno_build\\inno_build\\example\\build\\windows\\x64\\installer\\Release\\Output\\mysetup.exe"
           
