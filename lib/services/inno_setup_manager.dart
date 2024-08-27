@@ -47,7 +47,7 @@ class InnoSetupManager {
         ],
       )
       ..addRun(
-        '${Inno.tmp}\\${vcRedistPath.split('/').last}',
+        '${Inno.tmp}\\$vcRedistExe',
         parameters: '/install /passive /norestart',
         flags: [RunFlag.runHidden],
         message: 'Installing Microsoft Visual C++ 2015-2022 Redistributable...',

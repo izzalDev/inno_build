@@ -16,6 +16,7 @@ String innoSetupUrl = 'http://files.jrsoftware.org/is/6/innosetup-6.3.3.exe';
 String vcRedistPath = join(tempDir, vcRedistUrl.split('/').last);
 String innoCompilerPath = join(programfilesDir,'Inno Setup 6','ISCC.exe');
 String innoSetupInstallerPath = join(tempDir, innoSetupUrl.split('/').last);
+String vcRedistExe = 'vc_redist.x64.exe';
 
 const String helpMessage = '''
 Usage: inno_build [options]
