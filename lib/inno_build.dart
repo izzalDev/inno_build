@@ -167,7 +167,7 @@ class InnoBuild {
     }
     final exitCode = await innoSetupManager.compileInnoSetupScript();
     if (exitCode == 0) {
-      spinner.success('Compiled Inno Setup script successfully.');
+      spinner.success('Built ${buildMode.installerPath}\\installer.exe.');
     } else {
       spinner.fail('Failed to compile Inno Setup script');
     }

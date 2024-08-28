@@ -28,6 +28,11 @@ class InnoSetupManager {
     );
 
     generator
+      ..addSetup(
+        'OutputDir',
+        mode.installerPath,
+      )
+      ..addSetup('OutputBaseFilename', 'installer')
       ..addFiles(
         '${mode.buildPath}\\*',
         flags: [
