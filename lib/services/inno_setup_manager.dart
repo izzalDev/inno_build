@@ -79,6 +79,14 @@ class InnoSetupManager {
         description: '{cm:CreateDesktopIcon}',
         groupDescription: '{cm:AdditionalIcons}',
         flags: [TaskFlag.unchecked],
+      )
+      ..addSetup(
+        'UninstallDisplayIcon',
+        '${Inno.app}\\${Config.execName}',
+      )
+      ..addSetup(
+        'UninstallDisplayName',
+        '${Config.appName}',
       );
 
     final script = generator.toString();
