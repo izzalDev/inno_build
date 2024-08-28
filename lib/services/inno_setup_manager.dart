@@ -32,7 +32,14 @@ class InnoSetupManager {
         'OutputDir',
         mode.installerPath,
       )
-      ..addSetup('OutputBaseFilename', 'installer')
+      ..addSetup(
+        'OutputBaseFilename',
+        'installer',
+      )
+      ..addSetup(
+        'MinVersion',
+        '10.0.10240',
+      )
       ..addFiles(
         '${mode.buildPath}\\*',
         flags: [
