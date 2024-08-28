@@ -114,7 +114,6 @@ class InnoSetupManager {
       '/VERYSILENT',
       '/SUPPRESSMSGBOXES',
       '/NORESTART',
-      '/CURRENTUSER',
       '/SP-',
     ];
 
