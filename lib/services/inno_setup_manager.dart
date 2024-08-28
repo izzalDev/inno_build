@@ -6,6 +6,7 @@ import 'package:inno_build/models/file_flag.dart';
 import 'package:inno_build/models/inno.dart';
 import 'package:inno_build/models/language.dart';
 import 'package:inno_build/models/run_flag.dart';
+import 'package:inno_build/models/task_flag.dart';
 import 'package:inno_build/utils/config.dart';
 import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/iss_generator.dart';
@@ -63,6 +64,21 @@ class InnoSetupManager {
         parameters: '/install /passive /norestart',
         flags: [RunFlag.runHidden],
         message: 'Installing Microsoft Visual C++ 2015-2022 Redistributable...',
+      )
+      ..addIcons(
+        '${Inno.autoprograms}\\${Config.appName}',
+        '${Inno.app}\\${Config.bundleId}.exe',
+      )
+      ..addIcons(
+        '${Inno.autodesktop}\\${Config.appName}',
+        '${Inno.app}\\${Config.bundleId}',
+        tasks: ['desktopicon'],
+      )
+      ..addTasks(
+        name: 'desktopicon',
+        description: '{cm:CreateDesktopIcon}',
+        groupDescription: '{cm:AdditionalIcons}',
+        flags: [TaskFlag.unchecked],
       );
 
     final script = generator.toString();
