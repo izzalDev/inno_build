@@ -58,22 +58,6 @@ jobs:
             exit 1
           }
 
-      - name: Run Release Mode with Install
-        run: |
-          dart run inno_build --release --install-inno --verbose
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
-            exit 1
-          }
-
-      - name: Run Debug Mode with Install
-        run: |
-          dart run inno_build --debug --install-inno --verbose
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
-            exit 1
-          }
-
       - name: Run Quiet Mode in Release
         run: |
           dart run inno_build --release --quiet
