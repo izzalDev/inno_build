@@ -29,110 +29,98 @@ jobs:
       - name: Run Verbose Release Mode
         run: |
           dart run inno_build --release --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Verbose Debug Mode
         run: |
           dart run inno_build --debug --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Release Mode with App ID
         run: |
           dart run inno_build --release --app-id --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Debug Mode with App ID
         run: |
           dart run inno_build --debug --app-id --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Release Mode with Install
         run: |
           dart run inno_build --release --install --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Debug Mode with Install
         run: |
           dart run inno_build --debug --install --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Release Mode with App ID and Install
         run: |
           dart run inno_build --release --app-id --install --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Debug Mode with App ID and Install
         run: |
           dart run inno_build --debug --app-id --install --verbose
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Quiet Mode in Release
         run: |
           dart run inno_build --release --quiet
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Quiet Mode in Debug
         run: |
           dart run inno_build --debug --quiet
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Quiet Mode with Install in Release
         run: |
           dart run inno_build --release --install --quiet
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Run Quiet Mode with Install in Debug
         run: |
           dart run inno_build --debug --install --quiet
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Expected exit code 0, but got $EXIT_CODE. Stopping execution."
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
-          fi
+          }
 
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
