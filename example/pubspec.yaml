@@ -16,3 +16,5 @@ dev_dependencies:
     path: '..'
 flutter: 
   uses-material-design: true
+inno_build: 
+  app_id: '7fe6efd2-c6f1-4096-85ff-5740fdee5ae8'

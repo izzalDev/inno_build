@@ -71,30 +71,27 @@ class InnoSetupManager {
     return process.exitCode;
   }
 
-  Future<int> ensureInnoSetupInstalled() async {
-    if (!File(innoCompilerPath).existsSync()) {
-      final args = quiet
-          ? [
-              '/c',
-              innoSetupInstallerPath,
-              '/VERYSILENT',
-              '/SUPPRESSMSGBOXES',
-              '/NORESTART',
-              '/SP-',
-            ]
-          : [
-              '/c',
-              innoSetupInstallerPath,
-            ];
+  Future<int> installInnoSetup() async {
+    final args = quiet
+        ? [
+            '/c',
+            innoSetupInstallerPath,
+            '/VERYSILENT',
+            '/SUPPRESSMSGBOXES',
+            '/NORESTART',
+            '/SP-',
+          ]
+        : [
+            '/c',
+            innoSetupInstallerPath,
+          ];
 
-      final process = await Process.start(
-        'cmd',
-        args,
-        mode: quiet ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
-      );
-
-      return await process.exitCode;
-    }
-    return 0;
+    final process = await Process.start(
+      'cmd',
+      args,
+      mode: quiet ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
+    );
+    
+    return await process.exitCode;
   }
 }

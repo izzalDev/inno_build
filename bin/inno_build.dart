@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:cli_spin/cli_spin.dart';
-import 'package:inno_build/logic/app_logic.dart';
+import 'package:inno_build/inno_build.dart';
 import 'package:inno_build/models/build_mode.dart';
 import 'package:inno_build/services/app_id_service.dart';
 import 'package:inno_build/services/dependency_manager.dart';
@@ -52,7 +52,7 @@ Future<void> main(List<String> arguments) async {
   final innoSetupManager = InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
   final spinner = CliSpin();
 
-  final appLogic = AppLogic(
+  final appLogic = InnoBuild(
     argResults: argResults,
     pubspecManager: pubspecManager,
     appIdService: appIdService,

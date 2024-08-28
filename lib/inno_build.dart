@@ -10,7 +10,7 @@ import 'package:inno_build/utils/config.dart';
 import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/pubspec_manager.dart';
 
-class AppLogic {
+class InnoBuild {
   final ArgResults argResults;
   final PubspecManager pubspecManager;
   final AppIdService appIdService;
@@ -20,7 +20,7 @@ class AppLogic {
   final CliSpin spinner;
   final BuildMode buildMode;
 
-  AppLogic({
+  InnoBuild({
     required this.argResults,
     required this.pubspecManager,
     required this.appIdService,
@@ -34,7 +34,7 @@ class AppLogic {
   Future<void> run() async {
     _validateFlags();
     if (argResults['install-inno']) {
-      await _checkAndInstallInnoSetup();
+      await _installInnoSetup();
       exit(0);
     }
     await _handleAppId();
@@ -132,7 +132,7 @@ class AppLogic {
     if (File(innoSetupInstallerPath).existsSync()) {
       spinner.start('Installing Inno Setup...');
       try {
-        await innoSetupManager.ensureInnoSetupInstalled();
+        await innoSetupManager.installInnoSetup();
         spinner.success('Installed Inno Setup successfully.');
       } catch (e) {
         spinner.fail('Failed to install Inno Setup');
@@ -140,7 +140,7 @@ class AppLogic {
       }
     } else {
       await _downloadInnoSetup();
-      final install = await innoSetupManager.ensureInnoSetupInstalled();
+      final install = await innoSetupManager.installInnoSetup();
       if (install == 0) {
         spinner.success('Installed Inno Setup successfully.');
       } else {
