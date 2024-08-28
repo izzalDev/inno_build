@@ -11,11 +11,17 @@ final windowsRunnerPath = join(
 );
 String tempDir = Directory.systemTemp.path;
 String programfilesDir = Platform.environment['programfiles(x86)']!;
-String homeDir = Platform.environment['homepath']!;
 String vcRedistUrl = 'https://aka.ms/vs/17/release/vc_redist.x64.exe';
 String innoSetupUrl = 'http://files.jrsoftware.org/is/6/innosetup-6.3.3.exe';
 String vcRedistPath = join(tempDir, vcRedistUrl.split('/').last);
-String innoCompilerPath = join(homeDir,'AppData','Local','Programs','Inno Setup 6','ISCC.exe');
+String innoCompilerPath = join(
+  programfilesDir,
+  'AppData',
+  'Local',
+  'Programs',
+  'Inno Setup 6',
+  'ISCC.exe',
+);
 String innoSetupInstallerPath = join(tempDir, innoSetupUrl.split('/').last);
 String vcRedistExe = 'vc_redist.x64.exe';
 
