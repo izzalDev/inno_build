@@ -60,7 +60,7 @@ jobs:
 
       - name: Run Release Mode with Install
         run: |
-          dart run inno_build --release --install --verbose
+          dart run inno_build --release --install-inno --verbose
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
@@ -68,7 +68,7 @@ jobs:
 
       - name: Run Debug Mode with Install
         run: |
-          dart run inno_build --debug --install --verbose
+          dart run inno_build --debug --install-inno --verbose
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
@@ -76,7 +76,7 @@ jobs:
 
       - name: Run Release Mode with App ID and Install
         run: |
-          dart run inno_build --release --app-id --install --verbose
+          dart run inno_build --release --app-id --install-inno --verbose
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
@@ -84,7 +84,7 @@ jobs:
 
       - name: Run Debug Mode with App ID and Install
         run: |
-          dart run inno_build --debug --app-id --install --verbose
+          dart run inno_build --debug --app-id --install-inno --verbose
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
@@ -108,7 +108,7 @@ jobs:
 
       - name: Run Quiet Mode with Install in Release
         run: |
-          dart run inno_build --release --install --quiet
+          dart run inno_build --release --install-inno --quiet
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
@@ -116,7 +116,7 @@ jobs:
 
       - name: Run Quiet Mode with Install in Debug
         run: |
-          dart run inno_build --debug --install --quiet
+          dart run inno_build --debug --install-inno --quiet
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
