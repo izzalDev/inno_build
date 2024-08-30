@@ -11,7 +11,6 @@
 - Changed `outputdir` and now displays a message in the console when finished.
 - Always install Inno Setup without the wizard.
 
-
 ## 0.0.2
 
 - Specify platform in pubspec.yaml file
