@@ -1,4 +1,4 @@
-## Unreleased
+## 0.1.0
 
 **Fix :**
 - Improved uninstaller functionality in Control Panel.
