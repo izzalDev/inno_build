@@ -1,6 +1,6 @@
 name: inno_build
 description: CLI for building Flutter Windows applications into Windows installer (.exe) using Inno Setup. Automates the installer creation process for easy distribution.
-version: 0.0.2
+version: 0.1.0
 repository: https://github.com/izzalDev/inno_build
 
 environment:
