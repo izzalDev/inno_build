@@ -10,7 +10,7 @@ enum TaskFlag {
   checkedOnce,
 
   /// Prevents the task from automatically becoming checked when its parent is checked.
-  /// 
+  ///
   /// Has no effect on top-level tasks, and cannot be combined with the `exclusive` flag.
   dontInheritCheck,
 
@@ -25,7 +25,7 @@ enum TaskFlag {
   unchecked;
 
   @override
-  String toString(){
+  String toString() {
     return name.toLowerCase();
   }
 }

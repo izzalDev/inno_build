@@ -33,7 +33,7 @@ enum IconFlag {
   useAppPaths;
 
   @override
-  String toString(){
+  String toString() {
     return name.toLowerCase();
   }
 }

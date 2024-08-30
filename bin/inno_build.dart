@@ -13,9 +13,12 @@ import 'package:inno_build/utils/pubspec_manager.dart';
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption('app-id', abbr: 'a', help: 'Generate a new InnoSetup AppID.')
-    ..addFlag('release', help: 'Generate the application in release mode (default).')
-    ..addFlag('debug', abbr: 'd', help: 'Generate the application in debug mode.')
-    ..addFlag('install-inno', abbr: 'i', help: 'Install Inno Setup if not present.')
+    ..addFlag('release',
+        help: 'Generate the application in release mode (default).')
+    ..addFlag('debug',
+        abbr: 'd', help: 'Generate the application in debug mode.')
+    ..addFlag('install-inno',
+        abbr: 'i', help: 'Install Inno Setup if not present.')
     ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output.')
     ..addFlag('quiet', abbr: 'q', help: 'Suppress output (quiet mode).')
     ..addFlag('help', abbr: 'h', help: 'Show this help message.')
@@ -49,7 +52,8 @@ Future<void> main(List<String> arguments) async {
   final appIdService = AppIdService(pubspecManager);
   final dependencyManager = DependencyManager(verbose: verbose);
   final flutterBuilder = FlutterBuilder(buildMode);
-  final innoSetupManager = InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
+  final innoSetupManager =
+      InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
   final spinner = CliSpin();
 
   final appLogic = InnoBuild(

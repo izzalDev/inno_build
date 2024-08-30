@@ -46,13 +46,14 @@ class InnoBuild {
   }
 
   void _validateFlags() {
-    if (argResults['debug'] && argResults['release'] && argResults['install-inno']) {
+    if (argResults['debug'] &&
+        argResults['release'] &&
+        argResults['install-inno']) {
       throw ArgumentError(
           'Error: --release, --debug, and --install-inno cannot be used together.');
     }
     if (argResults['verbose'] && argResults['quiet']) {
-      throw ArgumentError(
-          'Error: --verbose --quiet cannot be used together.');
+      throw ArgumentError('Error: --verbose --quiet cannot be used together.');
     }
   }
 

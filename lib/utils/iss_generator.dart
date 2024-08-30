@@ -99,9 +99,8 @@ class IssGenerator {
       if (appUserModelID != null) 'AppUserModelID: "$appUserModelID"',
       if (appUserModelToaseActivatorCLSID != null)
         'AppUserModelToastActivatorCLSID: "$appUserModelToaseActivatorCLSID"',
-      if (flags != null && flags.isNotEmpty)
-        'Flags: "${flags.join(' ')}"',
-      if(tasks != null && tasks.isNotEmpty)'Tasks: ${tasks.join(' ')}'
+      if (flags != null && flags.isNotEmpty) 'Flags: "${flags.join(' ')}"',
+      if (tasks != null && tasks.isNotEmpty) 'Tasks: ${tasks.join(' ')}'
     ].join('; ');
 
     if (_icons.isEmpty) {

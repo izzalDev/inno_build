@@ -6,7 +6,7 @@ enum BuildMode {
   release('Release');
 
   final String capitalize;
-  
+
   const BuildMode(this.capitalize);
 
   String _buildPath(String subDirectory) {
