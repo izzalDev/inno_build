@@ -1,0 +1,49 @@
+name: Feature Request
+about: Suggest a new feature or enhancement
+title: "[FEATURE] - Descriptive Title"
+labels: enhancement
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      content: |
+        ## Summary
+        Please provide a brief summary of the feature you would like to request.
+
+  - type: input
+    attributes:
+      label: Description
+      description: Describe the feature in detail, including any specific requirements or use cases.
+      placeholder: |
+        Explain the feature request in detail. What problem does it solve? How would it improve the project?
+
+  - type: input
+    attributes:
+      label: Motivation
+      description: Explain why this feature is important and how it would benefit users or the project.
+      placeholder: |
+        Provide the motivation behind this request. Why is this feature needed?
+
+  - type: input
+    attributes:
+      label: Alternatives
+      description: Describe any alternative solutions or features you have considered.
+      placeholder: |
+        Have you considered any alternative solutions? If so, describe them and why they might be less suitable.
+
+  - type: input
+    attributes:
+      label: Additional Context
+      description: Provide any additional context, references, or examples that might be helpful.
+      placeholder: |
+        Include any additional information, references, or examples that might help in understanding the feature request.
+
+  - type: checkbox
+    attributes:
+      label: Checklist
+      options:
+        - label: I have checked the existing issues to see if this feature is already requested.
+        - label: I have included a clear description and motivation for the feature.
+        - label: I have considered alternative solutions and provided context.
+
