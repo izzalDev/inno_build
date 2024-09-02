@@ -80,6 +80,7 @@ enum RunFlag {
   /// Cannot be combined with nowait or waituntilidle.
   waitUntilTerminated('waituntilterminated');
 
+  /// The flag value.
   final String flag;
 
   const RunFlag(this.flag);

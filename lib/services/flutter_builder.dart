@@ -15,7 +15,19 @@ import 'package:inno_build/models/build_mode.dart';
 /// If `false`, the command will be executed with the `--quiet` flag and
 /// the output will be silent.
 class FlutterBuilder {
+  /// Whether the `flutter build` command should be executed with the
+  /// `--verbose` flag.
+  ///
+  /// If `true`, the output will be printed to the console. If `false`, the
+  /// output will be silent.
   final bool verbose;
+
+  /// The build mode to use when building the Flutter application.
+  ///
+  /// The build mode determines where the application will be built.
+  /// The possible values are:
+  /// - [BuildMode.debug]: The application will be built in debug mode.
+  /// - [BuildMode.release]: The application will be built in release mode.
   final BuildMode buildMode;
 
   /// Creates a new instance of [FlutterBuilder].

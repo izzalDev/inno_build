@@ -212,6 +212,14 @@ enum Inno {
   /// "C:\ProgramData\Templates\MYFILE.DLL" (for administrative) or "C:\Users\<User>\AppData\Roaming\Microsoft\Templates\MYFILE.DLL" (for non-administrative).
   autotemplates('{autotemplates}');
 
+  /// The Inno Setup directory constant.
+  ///
+  /// This is the string that Inno Setup will replace with the actual directory
+  /// path when it is encountered in a [Files] section entry.
+  ///
+  /// Example: If you specify `{app}` in the `DestDir` parameter of a [Files]
+  /// section entry, Inno Setup will replace it with the actual installation
+  /// directory path.
   final String value;
 
   const Inno(this.value);
