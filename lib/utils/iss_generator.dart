@@ -25,19 +25,19 @@ class IssGenerator {
     _languages.writeln('[Languages]');
     _files.writeln('[Files]');
     _run.writeln('[Run]');
-    addSetup('AppId', appId);
-    addSetup('AppName', appName);
-    addSetup('AppVersion', appVersion);
-    addSetup('DefaultDirName', defaultDirname);
-    addSetup('ArchitecturesAllowed', 'x64compatible');
-    addSetup('ArchitecturesInstallIn64BitMode', 'x64compatible');
-    addSetup('Compression', 'lzma2/max');
-    addSetup('SolidCompression', 'yes');
-    addSetup('WizardStyle', 'modern');
+    addSetup(key: 'AppId', value: appId);
+    addSetup(key: 'AppName', value: appName);
+    addSetup(key: 'AppVersion', value: appVersion);
+    addSetup(key: 'DefaultDirName', value: defaultDirname);
+    addSetup(key: 'ArchitecturesAllowed', value: 'x64compatible');
+    addSetup(key: 'ArchitecturesInstallIn64BitMode', value: 'x64compatible');
+    addSetup(key: 'Compression', value: 'lzma2/max');
+    addSetup(key: 'SolidCompression', value: 'yes');
+    addSetup(key: 'WizardStyle', value: 'modern');
     addLanguages(defaultLanguages);
   }
 
-  void addSetup(String key, String value) {
+  void addSetup({required String key, required String value}) {
     _setup.writeln('$key=$value');
   }
 
@@ -46,7 +46,11 @@ class IssGenerator {
         'Name: "${language.name}"; MessagesFile: "compiler:${language.file}"');
   }
 
-  void addFiles(String source, {String? destination, List<FileFlag>? flags}) {
+  void addFiles({
+    required String source,
+    String? destination,
+    List<FileFlag>? flags,
+  }) {
     final destDir = destination ?? Inno.app;
     if (flags != null) {
       _files.writeln(
@@ -56,8 +60,8 @@ class IssGenerator {
     }
   }
 
-  void addRun(
-    String fileName, {
+  void addRun({
+    required String fileName,
     String? parameters,
     List<RunFlag>? flags,
     String? message,
@@ -72,9 +76,9 @@ class IssGenerator {
     _run.writeln(runPart);
   }
 
-  void addIcons(
-    String name,
-    String fileName, {
+  void addIcons({
+    required String name,
+    required String fileName,
     List<String>? parameters,
     String? workingDir,
     List<String>? hotKey,

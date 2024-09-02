@@ -30,48 +30,42 @@ class InnoSetupManager {
 
     generator
       ..addSetup(
-        'OutputDir',
-        mode.installerPath,
+        key: 'OutputDir',
+        value: mode.installerPath,
       )
       ..addSetup(
-        'OutputBaseFilename',
-        'installer',
+        key: 'OutputBaseFilename',
+        value: 'installer',
       )
       ..addSetup(
-        'MinVersion',
-        '10.0.10240',
+        key: 'MinVersion',
+        value: '10.0.10240',
       )
       ..addFiles(
-        '${mode.buildPath}\\*',
-        flags: [
-          FileFlag.recurseSubdirs,
-          FileFlag.createAllSubdirs,
-        ],
+        source: '${mode.buildPath}\\*',
+        flags: [FileFlag.recurseSubdirs, FileFlag.createAllSubdirs],
       )
       ..addFiles(
-        vcRedistPath,
+        source: vcRedistPath,
         destination: '${Inno.tmp}',
       )
       ..addRun(
-        '${Inno.autopf}\\${Config.appName}\\${Config.execName}',
-        flags: [
-          RunFlag.postInstall,
-          RunFlag.skipIfSilent,
-        ],
+        fileName: '${Inno.autopf}\\${Config.appName}\\${Config.execName}',
+        flags: [RunFlag.postInstall, RunFlag.skipIfSilent],
       )
       ..addRun(
-        '${Inno.tmp}\\$vcRedistExe',
+        fileName: '${Inno.tmp}\\$vcRedistExe',
         parameters: '/install /passive /norestart',
         flags: [RunFlag.runHidden],
         message: 'Installing Microsoft Visual C++ 2015-2022 Redistributable...',
       )
       ..addIcons(
-        '${Inno.autoprograms}\\${Config.appName}',
-        '${Inno.app}\\${Config.bundleId}.exe',
+        name: '${Inno.autoprograms}\\${Config.appName}',
+        fileName: '${Inno.app}\\${Config.bundleId}.exe',
       )
       ..addIcons(
-        '${Inno.autodesktop}\\${Config.appName}',
-        '${Inno.app}\\${Config.bundleId}',
+        name: '${Inno.autodesktop}\\${Config.appName}',
+        fileName: '${Inno.app}\\${Config.bundleId}',
         tasks: ['desktopicon'],
       )
       ..addTasks(
@@ -81,12 +75,12 @@ class InnoSetupManager {
         flags: [TaskFlag.unchecked],
       )
       ..addSetup(
-        'UninstallDisplayIcon',
-        '${Inno.app}\\${Config.execName}',
+        key: 'UninstallDisplayIcon',
+        value: '${Inno.app}\\${Config.execName}',
       )
       ..addSetup(
-        'UninstallDisplayName',
-        '${Config.appName}',
+        key: 'UninstallDisplayName',
+        value: '${Config.appName}',
       );
 
     final script = generator.toString();
