@@ -10,16 +10,92 @@ import 'package:inno_build/utils/config.dart';
 import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/pubspec_manager.dart';
 
+/// This class is the main entry point of the `inno_build` command-line tool.
+///
+/// It takes the parsed command-line arguments, and uses them to determine what
+/// actions to take. The actions are:
+/// 1. Generate a new App ID if the user specified the `--app-id` flag.
+/// 2. Check if Inno Setup is installed, and download and install it if not.
+/// 3. Check if the Visual C++ 2015-2022 Redistributable is downloaded, and
+/// download it if not.
+/// 4. Build the Flutter Windows application using the `flutter build` command.
+/// 5. Build the Inno Setup script using the `inno_setup_manager` service.
+/// 6. Compile the Inno Setup script using the `inno_setup_manager` service.
 class InnoBuild {
+  /// The parsed command-line arguments.
+  ///
+  /// This is used to determine the actions to take when running the `inno_build`
+  /// command-line tool.
   final ArgResults argResults;
+
+  /// An instance of the `PubspecManager` class.
+  ///
+  /// This is used to read and write the `pubspec.yaml` file.
   final PubspecManager pubspecManager;
+
+  /// An instance of the `AppIdService` class.
+  ///
+  /// This is used to generate a new App ID if the user specified the
+  /// `--app-id` flag.
   final AppIdService appIdService;
+
+  /// An instance of the `DependencyManager` class.
+  ///
+  /// This is used to download and install Inno Setup if it is not already
+  /// installed, and to download the Visual C++ 2015-2022 Redistributable if
+  /// it is not already downloaded.
   final DependencyManager dependencyManager;
+
+  /// An instance of the `FlutterBuilder` class.
+  ///
+  /// This is used to build the Flutter Windows application using the
+  /// `flutter build` command.
   final FlutterBuilder flutterBuilder;
+
+  /// An instance of the `InnoSetupManager` class.
+  ///
+  /// This is used to build the Inno Setup script and compile it using the
+  /// `inno_setup_manager` service.
   final InnoSetupManager innoSetupManager;
+
+  /// An instance of the `CliSpin` class.
+  ///
+  /// This is used to display a spinner while the `inno_build` command-line tool
+  /// is running.
   final CliSpin spinner;
+
+  /// The build mode specified by the user.
+  ///
+  /// This is either `BuildMode.debug` or `BuildMode.release`.
   final BuildMode buildMode;
 
+  /// Creates an instance of the `inno_build` command-line tool.
+  ///
+  /// The [argResults] parameter is the parsed command-line arguments.
+  ///
+  /// The [pubspecManager] parameter is an instance of the `PubspecManager`
+  /// class, which is used to read and write the `pubspec.yaml` file.
+  ///
+  /// The [appIdService] parameter is an instance of the `AppIdService` class,
+  /// which is used to generate a new App ID if the user specified the
+  /// `--app-id` flag.
+  ///
+  /// The [dependencyManager] parameter is an instance of the
+  /// `DependencyManager` class, which is used to check if Inno Setup is
+  /// installed, and download and install it if not.
+  ///
+  /// The [flutterBuilder] parameter is an instance of the `FlutterBuilder`
+  /// class, which is used to build the Flutter Windows application using
+  /// the `flutter build` command.
+  ///
+  /// The [innoSetupManager] parameter is an instance of the `InnoSetupManager`
+  /// class, which is used to build the Inno Setup script and compile it.
+  ///
+  /// The [spinner] parameter is an instance of the `CliSpin` class, which is
+  /// used to display a spinner on the console.
+  ///
+  /// The [buildMode] parameter is the build mode that the user specified using
+  /// the `--debug` or `--release` flag.
   InnoBuild({
     required this.argResults,
     required this.pubspecManager,
@@ -31,6 +107,10 @@ class InnoBuild {
     required this.buildMode,
   });
 
+  /// Runs the `inno_build` command-line tool.
+  ///
+  /// This method takes no arguments and returns a `Future` that completes when
+  /// the tool has finished running.
   Future<void> run() async {
     _validateFlags();
     if (argResults['install-inno']) {
@@ -45,6 +125,10 @@ class InnoBuild {
     await _compileInnoSetupScript();
   }
 
+  /// Validates the command-line flags.
+  ///
+  /// This method is called by the `run` method and checks that the user has not
+  /// provided any invalid combinations of flags.
   void _validateFlags() {
     if (argResults['debug'] &&
         argResults['release'] &&
@@ -57,6 +141,11 @@ class InnoBuild {
     }
   }
 
+  /// Handles generating a new App ID if the user specified the `--app-id` flag.
+  ///
+  /// This method is called by the `run` method and checks if the user has
+  /// specified the `--app-id` flag. If so, it generates a new App ID and updates
+  /// the `pubspec.yaml` file with it.
   Future<void> _handleAppId() async {
     if (argResults['app-id'] != null) {
       spinner.start('Generating new App ID...');
@@ -79,6 +168,10 @@ class InnoBuild {
     }
   }
 
+  /// Checks if Inno Setup is installed, and downloads and installs it if not.
+  ///
+  /// This method is called by the `run` method and checks if Inno Setup is
+  /// installed. If not, it downloads and installs it.
   Future<void> _checkAndInstallInnoSetup() async {
     spinner.start('Checking Inno Setup...');
     if (File(innoCompilerPath).existsSync()) {
@@ -88,6 +181,11 @@ class InnoBuild {
     }
   }
 
+  /// Checks if the Visual C++ 2015-2022 Redistributable is downloaded, and
+  /// downloads it if not.
+  ///
+  /// This method is called by the `run` method and checks if the Visual C++
+  /// 2015-2022 Redistributable is downloaded. If not, it downloads it.
   Future<void> _checkAndDownloadVccRedist() async {
     spinner.start('Checking Visual C++ 2015-2022 Redistributable...');
     if (File(vcRedistPath).existsSync()) {
@@ -108,6 +206,10 @@ class InnoBuild {
     }
   }
 
+  /// Downloads Inno Setup if it is not already installed.
+  ///
+  /// This method is called by the `run` method and downloads Inno Setup if it is
+  /// not already installed.
   Future<void> _downloadInnoSetup() async {
     spinner.start('Downloading Inno Setup...');
     final download = await dependencyManager.ensureInnoSetupDownloaded();
@@ -119,6 +221,10 @@ class InnoBuild {
     }
   }
 
+  /// Builds the Flutter Windows application using the `flutter build` command.
+  ///
+  /// This method is called by the `run` method and builds the Flutter Windows
+  /// application using the `flutter build` command.
   Future<void> _buildFlutterApp() async {
     spinner.start('Building Flutter Windows application...');
     final exitCode = await flutterBuilder.buildApp();
@@ -129,6 +235,10 @@ class InnoBuild {
     }
   }
 
+  /// Installs Inno Setup if it is not already installed.
+  ///
+  /// This method is called by the `run` method and installs Inno Setup if it is
+  /// not already installed.
   Future<void> _installInnoSetup() async {
     if (File(innoSetupInstallerPath).existsSync()) {
       spinner.start('Installing Inno Setup...');
@@ -150,6 +260,10 @@ class InnoBuild {
     }
   }
 
+  /// Builds the Inno Setup script using the `inno_setup_manager` service.
+  ///
+  /// This method is called by the `run` method and builds the Inno Setup script
+  /// using the `inno_setup_manager` service.
   Future<void> _buildInnoSetupScript() async {
     spinner.start('Building Inno Setup script...');
     try {
@@ -161,6 +275,10 @@ class InnoBuild {
     }
   }
 
+  /// Compiles the Inno Setup script using the `inno_setup_manager` service.
+  ///
+  /// This method is called by the `run` method and compiles the Inno Setup script
+  /// using the `inno_setup_manager` service.
   Future<void> _compileInnoSetupScript() async {
     spinner.start('Compiling Inno Setup script...');
     if (argResults['verbose']) {

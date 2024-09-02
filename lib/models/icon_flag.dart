@@ -1,3 +1,8 @@
+/// Enum representing various icon flags used in application setup.
+///
+/// Each constant corresponds to a specific icon flag option that can be used
+/// in the setup configuration. These flags control various behaviors during
+/// the creation of icons.
 enum IconFlag {
   /// Sets the "Close on Exit" property of the shortcut.
   /// This flag only has an effect if the shortcut points to an MS-DOS application (.pif extension).

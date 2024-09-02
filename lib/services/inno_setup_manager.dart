@@ -12,13 +12,24 @@ import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/iss_generator.dart';
 import 'package:path/path.dart';
 
+/// Builds an Inno Setup script and compiles it into a Windows executable.
 class InnoSetupManager {
+  /// Whether to display no output at all.
   final bool quiet;
+
+  /// Whether to display detailed information about the build process.
   final bool verbose;
+
+  /// The build mode to use.
   final BuildMode mode;
 
+  /// Creates a new instance of the [InnoSetupManager] class.
   InnoSetupManager(this.mode, {this.quiet = false, this.verbose = false});
 
+  /// Builds an Inno Setup script and saves it to a file.
+  ///
+  /// The file will be saved in the [BuildMode.installerPath] directory and will
+  /// have the name `setup_script.iss`.
   Future<File> buildInnoSetupScript() async {
     final generator = IssGenerator(
       appId: Config.appId!,
@@ -90,6 +101,10 @@ class InnoSetupManager {
     return scriptFile;
   }
 
+  /// Compiles the Inno Setup script into a Windows executable.
+  ///
+  /// The script will be compiled using the Inno Setup compiler specified in the
+  /// `innoCompilerPath` constant.
   Future<int> compileInnoSetupScript() async {
     List<String> args = ['-Q', '${mode.installerPath}\\setup_script.iss'];
     final process = await Process.start(
@@ -101,6 +116,9 @@ class InnoSetupManager {
     return process.exitCode;
   }
 
+  /// Installs the Inno Setup compiler.
+  ///
+  /// The installer will be run in silent mode and will not restart the computer.
   Future<int> installInnoSetup() async {
     final args = [
       '/c',
