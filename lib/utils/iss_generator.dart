@@ -6,6 +6,7 @@ import 'package:inno_build/models/run_flag.dart';
 import 'package:inno_build/models/task_flag.dart';
 import 'package:uuid/uuid.dart';
 
+/// Generates an Inno Setup script file.
 class IssGenerator {
   final StringBuffer _setup = StringBuffer();
   final StringBuffer _languages = StringBuffer();
@@ -14,6 +15,10 @@ class IssGenerator {
   final StringBuffer _run = StringBuffer();
   final StringBuffer _icons = StringBuffer();
 
+  /// Creates a new [IssGenerator] instance.
+  ///
+  /// [appId], [appName], [appVersion], [defaultDirname], and [defaultLanguages]
+  /// are required.
   IssGenerator({
     required String appId,
     required String appName,
@@ -37,15 +42,25 @@ class IssGenerator {
     addLanguages(defaultLanguages);
   }
 
+  /// Adds a setup entry to the Inno Setup script.
+  ///
+  /// [key] and [value] are required.
   void addSetup({required String key, required String value}) {
     _setup.writeln('$key=$value');
   }
 
+  /// Adds a language entry to the Inno Setup script.
+  ///
+  /// [language] is required.
   void addLanguages(Language language) {
     _languages.writeln(
         'Name: "${language.name}"; MessagesFile: "compiler:${language.file}"');
   }
 
+  /// Adds a [File] entry to the Inno Setup script.
+  ///
+  /// [source] is required. [destination] is optional and defaults to [Inno.app].
+  /// [flags] is optional.
   void addFiles({
     required String source,
     String? destination,
@@ -60,6 +75,9 @@ class IssGenerator {
     }
   }
 
+  /// Adds a [Run] entry to the Inno Setup script.
+  ///
+  /// [fileName] is required. [parameters], [flags], and [message] are optional.
   void addRun({
     required String fileName,
     String? parameters,
@@ -76,6 +94,12 @@ class IssGenerator {
     _run.writeln(runPart);
   }
 
+  /// Adds an [Icon] entry to the Inno Setup script.
+  ///
+  /// [name], [fileName], and [parameters] are required. [workingDir], [hotKey],
+  /// [comment], [iconFilename], [iconIndex], [appUserModelID],
+  /// [appUserModelToaseActivatorCLSID], and [flags] are optional. [tasks] is
+  /// optional.
   void addIcons({
     required String name,
     required String fileName,
@@ -115,6 +139,10 @@ class IssGenerator {
     }
   }
 
+  /// Adds a [Task] entry to the Inno Setup script.
+  ///
+  /// [name] and [description] are required. [groupDescription] is optional.
+  /// [components] and [flags] are optional.
   void addTasks({
     required String name,
     required String description,
@@ -138,6 +166,9 @@ class IssGenerator {
     }
   }
 
+  /// Builds the Inno Setup script.
+  ///
+  /// Returns a [StringBuffer] containing the Inno Setup script.
   StringBuffer build() {
     return StringBuffer()
       ..write(_setup.toString())
