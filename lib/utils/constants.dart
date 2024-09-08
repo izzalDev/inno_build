@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:path/path.dart';
 
@@ -57,7 +58,7 @@ String vcRedistPath = join(tempDir, vcRedistUrl.split('/').last);
 ///
 /// Example: If the `programfilesDir` is `C:\Program Files (x86)`, then the
 /// `innoCompilerPath` will be `C:\Program Files (x86)\Inno Setup 6\ISCC.exe`.
-String innoCompilerPath = join(programfilesDir, 'Inno Setup 6', 'ISCC.exe');
+String innoCompilerPath = join(assetsPath!, 'ISCC.exe');
 
 /// The path where the `innosetup-6.3.3.exe` file will be downloaded.
 ///
@@ -93,3 +94,9 @@ const String welcomeMessage = '''
 ╔════════════════════════════════════════════════════════════════════╗
 ║                     ✨✨   INNO BUILD   ✨✨                       ║ 
 ╚════════════════════════════════════════════════════════════════════╝''';
+
+String? get assetsPath {
+  final packageUri = Uri.parse('package:inno_build/assets');
+  final pathFile = Isolate.resolvePackageUriSync(packageUri);
+  return pathFile?.toFilePath();
+}

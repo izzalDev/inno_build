@@ -93,6 +93,22 @@ class InnoSetupManager {
       ..addSetup(
         key: 'UninstallDisplayName',
         value: '${Config.appName}',
+      )
+      ..addSetup(
+        key: 'DisableWelcomePage',
+        value: 'no',
+      )
+      ..addSetup(
+        key: 'WizardImageFile',
+        value: join(assetsPath!, 'WizImage.bmp'),
+      )
+      ..addSetup(
+        key: 'WizardSmallImageFile',
+        value: join(assetsPath!, 'WizSmallImage.bmp'),
+      )
+      ..addSetup(
+        key: 'SetupIconFile',
+        value: join(assetsPath!, 'SetupIcon.ico'),
       );
 
     final script = generator.toString();
