@@ -109,6 +109,10 @@ class InnoSetupManager {
       ..addSetup(
         key: 'SetupIconFile',
         value: join(assetsPath!, 'SetupIcon.ico'),
+      )
+      ..addSetup(
+        key: 'PrivilegesRequiredOverridesAllowed',
+        value: 'dialog',
       );
 
     if (File('LICENSE').existsSync()) {
