@@ -111,6 +111,13 @@ class InnoSetupManager {
         value: join(assetsPath!, 'SetupIcon.ico'),
       );
 
+    if (File('LICENSE').existsSync()) {
+      generator.addSetup(
+        key: 'LicenseFile',
+        value: join(Directory.current.path, 'LICENSE'),
+      );
+    }
+
     final script = generator.toString();
     final scriptPath = join(mode.installerPath, 'setup_script.iss');
     final scriptFile = File(scriptPath);
