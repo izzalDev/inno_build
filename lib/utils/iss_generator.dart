@@ -83,12 +83,14 @@ class IssGenerator {
     String? parameters,
     List<RunFlag>? flags,
     String? message,
+    String? description,
   }) {
     String runPart = [
       'Filename: "$fileName"',
       if (parameters != null) 'Parameters: "$parameters"',
       if (flags != null && flags.isNotEmpty) 'Flags: ${flags.join(' ')}',
       if (message != null) 'StatusMsg: $message',
+      if (description != null) 'Description: $description'
     ].join('; ');
 
     _run.writeln(runPart);
