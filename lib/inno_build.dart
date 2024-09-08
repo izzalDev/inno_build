@@ -120,7 +120,7 @@ class InnoBuild {
     await _handleAppId();
     // await _checkAndInstallInnoSetup();
     // await _checkAndDownloadVccRedist();
-    await _buildFlutterApp();
+    // await _buildFlutterApp();
     await _buildInnoSetupScript();
     await _compileInnoSetupScript();
   }

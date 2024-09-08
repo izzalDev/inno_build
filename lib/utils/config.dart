@@ -24,6 +24,8 @@ class Config {
   /// This is read from the `version` key in the pubspec.yaml file.
   static String? get appVersion => _pubspec['version'].split('+').first;
 
+  static String? get buildNumber => _pubspec['version'].replaceAll('+', '.');
+
   /// The application name.
   ///
   /// This is read from the `window.CreateAndShow` or `window.Create` line

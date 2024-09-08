@@ -122,6 +122,10 @@ class InnoSetupManager {
       )
       ..addFiles(
         source: join(assetsPath!, 'vcruntime140_1.dll'),
+      )
+      ..addSetup(
+        key: 'VersionInfoVersion',
+        value: '${Config.buildNumber}',
       );
 
     if (File('LICENSE').existsSync()) {
