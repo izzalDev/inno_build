@@ -23,3 +23,8 @@ repos:
         entry: dart run import_sorter:main
         language: system
         types: [dart]
+      - id: check-changelog
+        name: Check valid changelog current version
+        entry: ./.hooks/check_changelog.sh
+        language: system
+        types: [dart]
