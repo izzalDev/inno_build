@@ -95,6 +95,10 @@ const String welcomeMessage = '''
 ║                     ✨✨   INNO BUILD   ✨✨                       ║ 
 ╚════════════════════════════════════════════════════════════════════╝''';
 
+/// The path to the assets directory.
+///
+/// This resolves the URI for the `assets` folder within the `inno_build` package
+/// and returns its file system path.
 String? get assetsPath {
   final packageUri = Uri.parse('package:inno_build/assets');
   final pathFile = Isolate.resolvePackageUriSync(packageUri);
