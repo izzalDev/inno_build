@@ -120,7 +120,7 @@ class InnoBuild {
     await _handleAppId();
     // await _checkAndInstallInnoSetup();
     // await _checkAndDownloadVccRedist();
-    // await _buildFlutterApp();
+    await _buildFlutterApp();
     await _buildInnoSetupScript();
     await _compileInnoSetupScript();
   }
@@ -172,39 +172,39 @@ class InnoBuild {
   ///
   /// This method is called by the `run` method and checks if Inno Setup is
   /// installed. If not, it downloads and installs it.
-  Future<void> _checkAndInstallInnoSetup() async {
-    spinner.start('Checking Inno Setup...');
-    if (File(innoCompilerPath).existsSync()) {
-      spinner.success('Inno Setup is already installed.');
-    } else {
-      await _installInnoSetup();
-    }
-  }
+  // Future<void> _checkAndInstallInnoSetup() async {
+  //   spinner.start('Checking Inno Setup...');
+  //   if (File(innoCompilerPath).existsSync()) {
+  //     spinner.success('Inno Setup is already installed.');
+  //   } else {
+  //     await _installInnoSetup();
+  //   }
+  // }
 
   /// Checks if the Visual C++ 2015-2022 Redistributable is downloaded, and
   /// downloads it if not.
   ///
   /// This method is called by the `run` method and checks if the Visual C++
   /// 2015-2022 Redistributable is downloaded. If not, it downloads it.
-  Future<void> _checkAndDownloadVccRedist() async {
-    spinner.start('Checking Visual C++ 2015-2022 Redistributable...');
-    if (File(vcRedistPath).existsSync()) {
-      spinner.success(
-          'Visual C++ 2015-2022 Redistributable is already donwloaded.');
-    } else {
-      spinner.start('Downloading Visual C++ 2015-2022 Redistributable...');
-      if (argResults['verbose']) {
-        spinner.stopAndPersist();
-      }
-      final download = await dependencyManager.ensureVcredistDownloaded();
-      if (download == 0) {
-        spinner.success(
-            'Downloaded Visual C++ 2015-2022 Redistributable successfully.');
-      } else {
-        spinner.fail('Failed to download Visual C++ 2015-2022 Redistributable');
-      }
-    }
-  }
+  // Future<void> _checkAndDownloadVccRedist() async {
+  //   spinner.start('Checking Visual C++ 2015-2022 Redistributable...');
+  //   if (File(vcRedistPath).existsSync()) {
+  //     spinner.success(
+  //         'Visual C++ 2015-2022 Redistributable is already donwloaded.');
+  //   } else {
+  //     spinner.start('Downloading Visual C++ 2015-2022 Redistributable...');
+  //     if (argResults['verbose']) {
+  //       spinner.stopAndPersist();
+  //     }
+  //     final download = await dependencyManager.ensureVcredistDownloaded();
+  //     if (download == 0) {
+  //       spinner.success(
+  //           'Downloaded Visual C++ 2015-2022 Redistributable successfully.');
+  //     } else {
+  //       spinner.fail('Failed to download Visual C++ 2015-2022 Redistributable');
+  //     }
+  //   }
+  // }
 
   /// Downloads Inno Setup if it is not already installed.
   ///
