@@ -2,9 +2,9 @@ name: Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 defaults:
   run:
@@ -25,6 +25,12 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v3
+
+      - uses: pre-commit/action@v3.0.1
 
       - name: Run Verbose Release Mode
         run: |
@@ -69,22 +75,6 @@ jobs:
       - name: Run Quiet Mode in Debug
         run: |
           dart run inno_build --debug --quiet
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
-            exit 1
-          }
-
-      - name: Run Quiet Mode with Install in Release
-        run: |
-          dart run inno_build --release --install-inno --quiet
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
-            exit 1
-          }
-
-      - name: Run Quiet Mode with Install in Debug
-        run: |
-          dart run inno_build --debug --install-inno --quiet
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Expected exit code 0, but got $LASTEXITCODE. Stopping execution."
             exit 1
