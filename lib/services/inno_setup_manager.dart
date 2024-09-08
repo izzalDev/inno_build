@@ -63,6 +63,7 @@ class InnoSetupManager {
       ..addRun(
         fileName: '${Inno.autopf}\\${Config.appName}\\${Config.execName}',
         flags: [RunFlag.postInstall, RunFlag.skipIfSilent],
+        description: '{cm:LaunchProgram,${Config.appName}}',
       )
       ..addRun(
         fileName: '${Inno.tmp}\\$vcRedistExe',
