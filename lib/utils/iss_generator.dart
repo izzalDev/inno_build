@@ -1,10 +1,13 @@
+// Package imports:
+import 'package:uuid/uuid.dart';
+
+// Project imports:
 import 'package:inno_build/models/file_flag.dart';
 import 'package:inno_build/models/icon_flag.dart';
 import 'package:inno_build/models/inno.dart';
 import 'package:inno_build/models/language.dart';
 import 'package:inno_build/models/run_flag.dart';
 import 'package:inno_build/models/task_flag.dart';
-import 'package:uuid/uuid.dart';
 
 /// Generates an Inno Setup script file.
 class IssGenerator {

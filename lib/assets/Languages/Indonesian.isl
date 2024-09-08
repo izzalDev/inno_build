@@ -2,7 +2,7 @@
 ;
 ; Untuk mengunduh terjemahan kontribusi-pengguna dari berkas ini, buka:
 ;   http://www.jrsoftware.org/files/istrans/
-; 
+;
 ; Alih bahasa oleh: MozaikTM (mozaik.tm@gmail.com)
 
 [LangOptions]

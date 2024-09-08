@@ -1,6 +1,12 @@
 // lib/services/inno_setup_manager.dart
 
+// Dart imports:
 import 'dart:io';
+
+// Package imports:
+import 'package:path/path.dart';
+
+// Project imports:
 import 'package:inno_build/models/build_mode.dart';
 import 'package:inno_build/models/file_flag.dart';
 import 'package:inno_build/models/inno.dart';
@@ -10,7 +16,6 @@ import 'package:inno_build/models/task_flag.dart';
 import 'package:inno_build/utils/config.dart';
 import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/iss_generator.dart';
-import 'package:path/path.dart';
 
 /// Builds an Inno Setup script and compiles it into a Windows executable.
 class InnoSetupManager {

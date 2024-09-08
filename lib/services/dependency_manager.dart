@@ -1,6 +1,9 @@
 // lib/services/dependency_manager.dart
 
+// Dart imports:
 import 'dart:io';
+
+// Project imports:
 import 'package:inno_build/utils/constants.dart';
 
 /// DependencyManager is a class that is responsible for downloading and

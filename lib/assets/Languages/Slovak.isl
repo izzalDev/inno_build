@@ -18,7 +18,7 @@
 ; ***                                                ***
 ; ******************************************************
 ;
-; 
+;
 
 [LangOptions]
 LanguageName=Sloven<010D>ina
@@ -376,7 +376,7 @@ AdditionalIcons=Ďalší zástupcovia:
 CreateDesktopIcon=Vytvoriť zástupcu na &ploche
 CreateQuickLaunchIcon=Vytvoriť zástupcu na paneli &Rýchle spustenie
 ProgramOnTheWeb=Aplikácia %1 na internete
-UninstallProgram=Odinštalovať aplikáciu %1 
+UninstallProgram=Odinštalovať aplikáciu %1
 LaunchProgram=Spustiť aplikáciu %1
 AssocFileExtension=Vytvoriť &asociáciu medzi súbormi typu %2 a aplikáciou %1
 AssocingFileExtension=Vytvára sa asociácia medzi súbormi typu %2 a aplikáciou %1...

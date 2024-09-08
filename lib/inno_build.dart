@@ -1,6 +1,11 @@
+// Dart imports:
 import 'dart:io';
+
+// Package imports:
 import 'package:args/args.dart';
 import 'package:cli_spin/cli_spin.dart';
+
+// Project imports:
 import 'package:inno_build/models/build_mode.dart';
 import 'package:inno_build/services/app_id_service.dart';
 import 'package:inno_build/services/dependency_manager.dart';

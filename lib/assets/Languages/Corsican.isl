@@ -25,7 +25,7 @@
 ; September 17th, 2011 - Creation for version 5.1.11
 
 [LangOptions]
-; The following three entries are very important. Be sure to read and 
+; The following three entries are very important. Be sure to read and
 ; understand the '[LangOptions] section' topic in the help file.
 LanguageName=Corsu
 LanguageID=$0483

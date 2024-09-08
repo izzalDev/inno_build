@@ -7,7 +7,7 @@ Describe the changes made in this pull request. Include information about new fe
 - [ ] New Feature (feat)
 - [ ] Bug Fix (fix)
 - [ ] Documentation (docs)
-- [ ] Other (please specify): 
+- [ ] Other (please specify):
 
 ## Detailed Changes
 

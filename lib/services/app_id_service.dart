@@ -1,7 +1,10 @@
 // lib/services/app_id_service.dart
 
-import 'package:inno_build/utils/pubspec_manager.dart';
+// Package imports:
 import 'package:uuid/uuid.dart';
+
+// Project imports:
+import 'package:inno_build/utils/pubspec_manager.dart';
 
 /// Class that handles the app id
 ///

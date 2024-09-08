@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: dart-format
+        name: Dart Format
+        entry: dart format .
+        language: system
+        types: [dart]
+      - id: dart-analyze
+        name: Dart Analyze
+        entry: dart analyze
+        language: system
+        types: [dart]
+      - id: import-sorter
+        name: Import Sorter
+        entry: dart run import_sorter:main
+        language: system
+        types: [dart]

@@ -1,6 +1,8 @@
+// Dart imports:
 import 'dart:io';
 import 'dart:isolate';
 
+// Package imports:
 import 'package:path/path.dart';
 
 /// The path where the Flutter Windows application will be built.
@@ -92,7 +94,7 @@ Global Options:
 /// The welcome message that will be displayed when the user runs `inno_build`.
 const String welcomeMessage = '''
 ╔════════════════════════════════════════════════════════════════════╗
-║                     ✨✨   INNO BUILD   ✨✨                       ║ 
+║                     ✨✨   INNO BUILD   ✨✨                       ║
 ╚════════════════════════════════════════════════════════════════════╝''';
 
 /// The path to the assets directory.

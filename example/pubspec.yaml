@@ -2,19 +2,19 @@ name: 'example'
 description: 'A new Flutter project.'
 publish_to: 'none'
 version: '1.0.0+1'
-environment: 
+environment:
   sdk: '>=3.4.4 <4.0.0'
-dependencies: 
-  flutter: 
+dependencies:
+  flutter:
     sdk: 'flutter'
   cupertino_icons: '^1.0.6'
-dev_dependencies: 
-  flutter_test: 
+dev_dependencies:
+  flutter_test:
     sdk: 'flutter'
   flutter_lints: '^3.0.0'
-  inno_build: 
+  inno_build:
     path: '..'
-flutter: 
+flutter:
   uses-material-design: true
-inno_build: 
+inno_build:
   app_id: '7fe6efd2-c6f1-4096-85ff-5740fdee5ae8'

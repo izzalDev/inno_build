@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:inno_build/utils/pubspec_manager.dart';
+// Package imports:
 import 'package:path/path.dart';
+
+// Project imports:
+import 'package:inno_build/utils/pubspec_manager.dart';
 
 /// Holds the configuration for the build process.
 ///
