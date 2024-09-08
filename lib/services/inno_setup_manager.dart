@@ -56,21 +56,21 @@ class InnoSetupManager {
         source: '${mode.buildPath}\\*',
         flags: [FileFlag.recurseSubdirs, FileFlag.createAllSubdirs],
       )
-      ..addFiles(
-        source: vcRedistPath,
-        destination: '${Inno.tmp}',
-      )
+      // ..addFiles(
+      //   source: vcRedistPath,
+      //   destination: '${Inno.tmp}',
+      // )
       ..addRun(
         fileName: '${Inno.autopf}\\${Config.appName}\\${Config.execName}',
         flags: [RunFlag.postInstall, RunFlag.skipIfSilent],
         description: '{cm:LaunchProgram,${Config.appName}}',
       )
-      ..addRun(
-        fileName: '${Inno.tmp}\\$vcRedistExe',
-        parameters: '/install /passive /norestart',
-        flags: [RunFlag.runHidden],
-        message: 'Installing Microsoft Visual C++ 2015-2022 Redistributable...',
-      )
+      // ..addRun(
+      //   fileName: '${Inno.tmp}\\$vcRedistExe',
+      //   parameters: '/install /passive /norestart',
+      //   flags: [RunFlag.runHidden],
+      //   message: 'Installing Microsoft Visual C++ 2015-2022 Redistributable...',
+      // )
       ..addIcons(
         name: '${Inno.autoprograms}\\${Config.appName}',
         fileName: '${Inno.app}\\${Config.bundleId}.exe',
@@ -113,6 +113,15 @@ class InnoSetupManager {
       ..addSetup(
         key: 'PrivilegesRequiredOverridesAllowed',
         value: 'dialog',
+      )
+      ..addFiles(
+        source: join(assetsPath!, 'msvcp140.dll'),
+      )
+      ..addFiles(
+        source: join(assetsPath!, 'vcruntime140.dll'),
+      )
+      ..addFiles(
+        source: join(assetsPath!, 'vcruntime140_1.dll'),
       );
 
     if (File('LICENSE').existsSync()) {
