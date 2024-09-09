@@ -24,10 +24,12 @@ jobs:
       id: pre-commit
       run: |
         pre_commit_output=$(pre-commit run --all-files)
-        echo "$pre_commit_output"  # Print output to the console
+        exit_code=$?
         echo "PRE_COMMIT_OUTPUT<<EOF" >> $GITHUB_ENV
         echo "$pre_commit_output" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
+        echo ${{ env.PRE_COMMIT_OUTPUT }}
+        exit $exit_code
 
     - name: Review Pre-commit Results
       if: failure()
