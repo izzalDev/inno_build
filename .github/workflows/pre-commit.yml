@@ -23,8 +23,9 @@ jobs:
     - name: Run Precommit
       id: pre-commit
       run: |
-        pre_commit_output=$(pre-commit run --all-files | tee /dev/tty)
-        echo "pre_commit_output=$pre_commit_output" >> $GITHUB_OUTPUT
+        pre_commit_output=$(pre-commit run --all-files)
+        echo "pre_commit_output=$pre_commit_output" >> "$GITHUB_OUTPUT"
+        echo $pre_commit_output
 
     - name: Precommit review
       if: failure()
@@ -32,8 +33,6 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
         EVENT_TYPE: REQUEST_CHANGES
-        BRANCHES: release/*
-        AUTHOR: 'pre-commit[bot]'
         MESSAGE: |
           ## ❌ Pre-commit Hooks Failed
 
@@ -43,10 +42,10 @@ jobs:
           ${{ steps.pre-commit.outputs.pre_commit_output }}
           ```
 
-          Run the following command to fix issues automatically (if available):
+          Run the following command to fix issues automatically (if available) and reproduce output shown above, run:
 
           ```bash
           pre-commit run --all-files
           ```
 
-          Make sure that pre-commit is installed and set up in your Git hooks to help ensure code consistency. If you need further assistance, please refer to the CONTRIBUTING.md file.
+          Ensure that pre-commit is installed and configured in your Git hooks to maintain code consistency. For additional help, please refer to the [CONTRIBUTING.md](https://github.com/izzalDev/inno_build/blob/main/CONTRIBUTE.md) file.
