@@ -37,12 +37,12 @@ jobs:
       run: |
         sed '/<pre_commit_output>/r pre_commit_output.log' .github/pre-commit.md \
         | sed '/<pre_commit_output>/d' \
-        > temp.md
-        mv temp.md .github/pre-commit.md
+        > pre-commit.md
+        cat pre-commit.md
 
     - name: Review Pre-commit Results
       if: failure()
       uses: thollander/actions-comment-pull-request@v2
       with:
-        filePath: .github/pre-commit.md
+        filePath: pre-commit.md
         reactions: heart
