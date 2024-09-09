@@ -13,4 +13,4 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Print github context
-      run: echo $GITHUB_CONTEXT
+      run: echo "$GITHUB_CONTEXT"
