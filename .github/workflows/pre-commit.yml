@@ -14,12 +14,22 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+
+    - name: Setup Flutter SDK
+      uses: subosito/flutter-action@v2
+      with:
+        cache: true
 
     - name: Install Pre-commit
       run: |
         pip install pre-commit
-        pre-commit install
+        python -m pip freeze --local
+
+    - uses: actions/cache@v4
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
     - name: Run Pre-commit and Check for Failures
       run: |
