@@ -18,10 +18,9 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
 
-    - name: Run formatter
-      run: dart format .
-
     - uses: pre-commit/action@v3.0.1
+      with:
+        args: --all-files
 
     - name: Check for changes
       id: git-check
