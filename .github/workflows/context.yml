@@ -1,0 +1,16 @@
+name: Reformat and Update Pull Request
+
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+jobs:
+  reformat:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Print github context
+      run: echo $GITHUB_CONTEXT
