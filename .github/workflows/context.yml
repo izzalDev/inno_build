@@ -1,8 +1,6 @@
 name: Print GitHub Context
 
-on:
-  pull_request_target:
-    types: [opened, synchronize]
+on: [push, workflow_dispatch]
 
 jobs:
   print-context:
@@ -10,8 +8,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+    
+      - name: Cetak Halo dunia
+        id: cetak-halo
+        run: echo "Hello World"
 
       - name: Dump GitHub context
         env:
-            GITHUB_CONTEXT: ${{ toJson(github) }}
+            GITHUB_CONTEXT: ${{ toJson(steps.cetak-halo) }}
         run: echo "$GITHUB_CONTEXT"

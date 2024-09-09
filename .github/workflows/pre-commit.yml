@@ -21,7 +21,29 @@ jobs:
         python -m pip install pre-commit
 
     - name: Run Precommit
-      run: printf "$(pre-commit run --all-files)"
+      run: |
+        pre_commit_output=$(pre-commit run --all-files 2>&1)
 
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Precommit review
+      if: failure()
+      uses: golfzaptw/action-auto-reviews-from-branches@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        EVENT_TYPE: REQUEST_CHANGES
+        BRANCHES: release/*
+        AUTHOR: 'github-action[bot]'
+        MESSAGE: |
+          ## ❌ Pre-commit Hooks Failed
+
+          Some pre-commit hooks have failed. Please fix the following issues before committing:
+
+          ```bash
+
+          ```
+
+          Run the following command to fix issues automatically (if available):
+
+          ```bash
+          pre-commit run --all-files
+
+
