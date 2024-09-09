@@ -20,16 +20,29 @@ jobs:
         flutter pub get
         python -m pip install pre-commit
 
-    - name: Run Pre-commit Hooks
+    - name: Run pre-commit hooks
       id: pre-commit
       run: |
-        pre_commit_output=$(pre-commit run --all-files)
-        exit_code=$?
+        # Run the pre-commit hooks and capture the output and exit code
+        pre_commit_output=$(pre-commit run --all-files 2>&1)
+        pre_commit_exit_code=$?
+
+        # Save the output and exit code as environment variables
         echo "PRE_COMMIT_OUTPUT<<EOF" >> $GITHUB_ENV
         echo "$pre_commit_output" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
-        echo ${{ env.PRE_COMMIT_OUTPUT }}
-        exit $exit_code
+        echo "PRE_COMMIT_EXIT_CODE=$pre_commit_exit_code" >> $GITHUB_ENV
+
+    - name: Display pre-commit output
+      run: |
+        echo "Pre-commit output:"
+        echo "$PRE_COMMIT_OUTPUT"
+
+    - name: Fail the build if pre-commit hooks failed
+      if: ${{ env.PRE_COMMIT_EXIT_CODE != 0 }}
+      run: |
+        echo "Pre-commit hooks failed with exit code $PRE_COMMIT_EXIT_CODE"
+        exit $PRE_COMMIT_EXIT_CODE
 
     - name: Review Pre-commit Results
       if: failure()
@@ -43,7 +56,7 @@ jobs:
           Some pre-commit hooks have failed. Please fix the following issues before committing:
 
           ```bash
-          ${{ env.PRE_COMMIT_OUTPUT }}
+          [error log file]
           ```
 
           To automatically fix issues (if possible), run:
