@@ -24,7 +24,7 @@ jobs:
     - name: Run Pre-commit and Check for Failures
       run: |
         pre-commit run --all-files | tee pre_commit_output.log
-        if grep -q "Failed" pre_commit_output.txt; then
+        if grep -q "Failed" pre_commit_output.log; then
           echo "Pre-commit checks failed. Exiting..."
           exit 1
         fi
