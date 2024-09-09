@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Dart
       uses: subosito/flutter-action@v2
@@ -21,8 +21,10 @@ jobs:
         python -m pip install pre-commit
 
     - name: Run Precommit
+      id: pre-commit
       run: |
-        pre_commit_output=$(pre-commit run --all-files 2>&1)
+        pre_commit_output=$(pre-commit run --all-files | tee /dev/tty)
+        echo "pre_commit_output=$pre_commit_output" >> $GITHUB_OUTPUT
 
     - name: Precommit review
       if: failure()
@@ -31,19 +33,20 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
         EVENT_TYPE: REQUEST_CHANGES
         BRANCHES: release/*
-        AUTHOR: 'github-action[bot]'
+        AUTHOR: 'pre-commit[bot]'
         MESSAGE: |
           ## ❌ Pre-commit Hooks Failed
 
           Some pre-commit hooks have failed. Please fix the following issues before committing:
 
           ```bash
-
+          ${{ steps.pre-commit.outputs.pre_commit_output }}
           ```
 
           Run the following command to fix issues automatically (if available):
 
           ```bash
           pre-commit run --all-files
+          ```
 
-
+          Make sure that pre-commit is installed and set up in your Git hooks to help ensure code consistency. If you need further assistance, please refer to the CONTRIBUTING.md file.

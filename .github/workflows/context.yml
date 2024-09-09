@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-    
+
       - name: Cetak Halo dunia
         id: cetak-halo
         run: echo "Hello World"
