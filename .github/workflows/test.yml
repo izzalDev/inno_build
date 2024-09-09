@@ -81,3 +81,4 @@ jobs:
         with:
           name: Installer
           path: "example/build/windows/x64/installer/Release/installer.exe"
+          
