@@ -52,11 +52,11 @@ jobs:
 
     - name: Review Pre-commit Results
       if: failure()
-      uses: golfzaptw/action-auto-reviews-from-branches@master
+      uses: andrewmusgrave/automatic-pull-request-review@0.0.5
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        EVENT_TYPE: REQUEST_CHANGES
-        MESSAGE: |
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        event: REQUEST_CHANGES
+        body: |
           ## ❌ Pre-commit Hooks Failed
 
           Some pre-commit hooks have failed. Please fix the following issues before committing:
