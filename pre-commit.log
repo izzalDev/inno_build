@@ -1,0 +1,88 @@
+check yaml...............................................................Passed
+fix end of files.........................................................Failed
+- hook id: end-of-file-fixer
+- exit code: 1
+- files were modified by this hook
+
+Fixing .github/workflows/context.yml
+Fixing .github/CODEOWNERS
+Fixing README.md
+
+trim trailing whitespace.................................................Passed
+Dart Format..............................................................Passed
+Dart Analyze.............................................................Failed
+- hook id: dart-analyze
+- exit code: 3
+
+Analyzing inno_setup_manager.dart, run_flag.dart, build_mode.dart, flutter_builder.dart...
+No issues found!
+Analyzing dependency_manager.dart, app_id_service.dart, inno_build.dart, main.dart...
+
+  error - example/lib/main.dart:1:8 - Target of URI doesn't exist: 'package:flutter/material.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - example/lib/main.dart:4:3 - The function 'runApp' isn't defined. Try importing the library that defines 'runApp', correcting the name to the name of an existing function, or defining a function named 'runApp'. - undefined_function
+  error - example/lib/main.dart:7:21 - Classes can only extend other classes. Try specifying a different superclass, or removing the extends clause. - extends_non_class
+  error - example/lib/main.dart:8:22 - No associated named super constructor parameter. Try changing the name to the name of an existing named super constructor parameter, or creating such named parameter. - super_formal_parameter_without_associated_named
+  error - example/lib/main.dart:12:3 - Undefined class 'Widget'. Try changing the name to the name of an existing class, or creating a class with the name 'Widget'. - undefined_class
+  error - example/lib/main.dart:12:16 - Undefined class 'BuildContext'. Try changing the name to the name of an existing class, or creating a class with the name 'BuildContext'. - undefined_class
+  error - example/lib/main.dart:13:12 - The method 'MaterialApp' isn't defined for the type 'MyApp'. Try correcting the name to the name of an existing method, or defining a method named 'MaterialApp'. - undefined_method
+  error - example/lib/main.dart:15:14 - The method 'ThemeData' isn't defined for the type 'MyApp'. Try correcting the name to the name of an existing method, or defining a method named 'ThemeData'. - undefined_method
+  error - example/lib/main.dart:31:22 - Undefined name 'ColorScheme'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/lib/main.dart:31:54 - Undefined name 'Colors'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/lib/main.dart:39:26 - Classes can only extend other classes. Try specifying a different superclass, or removing the extends clause. - extends_non_class
+  error - example/lib/main.dart:40:27 - No associated named super constructor parameter. Try changing the name to the name of an existing named super constructor parameter, or creating such named parameter. - super_formal_parameter_without_associated_named
+  error - example/lib/main.dart:54:3 - Undefined class 'State'. Try changing the name to the name of an existing class, or creating a class with the name 'State'. - undefined_class
+  error - example/lib/main.dart:57:32 - Classes can only extend other classes. Try specifying a different superclass, or removing the extends clause. - extends_non_class
+  error - example/lib/main.dart:61:5 - The method 'setState' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'setState'. - undefined_method
+  error - example/lib/main.dart:72:3 - Undefined class 'Widget'. Try changing the name to the name of an existing class, or creating a class with the name 'Widget'. - undefined_class
+  error - example/lib/main.dart:72:16 - Undefined class 'BuildContext'. Try changing the name to the name of an existing class, or creating a class with the name 'BuildContext'. - undefined_class
+  error - example/lib/main.dart:79:12 - The method 'Scaffold' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'Scaffold'. - undefined_method
+  error - example/lib/main.dart:80:15 - The method 'AppBar' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'AppBar'. - undefined_method
+  error - example/lib/main.dart:84:26 - Undefined name 'Theme'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/lib/main.dart:87:16 - The method 'Text' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'Text'. - undefined_method
+  error - example/lib/main.dart:87:21 - Undefined name 'widget'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/lib/main.dart:89:13 - The method 'Center' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'Center'. - undefined_method
+  error - example/lib/main.dart:92:16 - The method 'Column' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'Column'. - undefined_method
+  error - example/lib/main.dart:106:30 - Undefined name 'MainAxisAlignment'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/lib/main.dart:107:22 - The name 'Widget' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'Widget'. - non_type_as_type_argument
+  error - example/lib/main.dart:108:19 - The name 'Text' isn't a class. Try correcting the name to match an existing class. - creation_with_non_type
+  error - example/lib/main.dart:111:13 - The method 'Text' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'Text'. - undefined_method
+  error - example/lib/main.dart:113:22 - Undefined name 'Theme'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/lib/main.dart:118:29 - The method 'FloatingActionButton' isn't defined for the type '_MyHomePageState'. Try correcting the name to the name of an existing method, or defining a method named 'FloatingActionButton'. - undefined_method
+  error - example/lib/main.dart:121:22 - The name 'Icon' isn't a class. Try correcting the name to match an existing class. - creation_with_non_type
+  error - example/lib/main.dart:121:27 - Undefined name 'Icons'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+warning - example/lib/main.dart:12:10 - The method doesn't override an inherited method. Try updating this class to match the superclass, or removing the override annotation. - override_on_non_overriding_member
+warning - example/lib/main.dart:54:21 - The method doesn't override an inherited method. Try updating this class to match the superclass, or removing the override annotation. - override_on_non_overriding_member
+warning - example/lib/main.dart:72:10 - The method doesn't override an inherited method. Try updating this class to match the superclass, or removing the override annotation. - override_on_non_overriding_member
+
+35 issues found.
+Analyzing constants.dart, widget_test.dart, language.dart, inno_build.dart...
+
+  error - example/test/widget_test.dart:8:8 - Target of URI doesn't exist: 'package:flutter/material.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - example/test/widget_test.dart:9:8 - Target of URI doesn't exist: 'package:flutter_test/flutter_test.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - example/test/widget_test.dart:11:8 - Target of URI doesn't exist: 'package:example/main.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - example/test/widget_test.dart:14:3 - The function 'testWidgets' isn't defined. Try importing the library that defines 'testWidgets', correcting the name to the name of an existing function, or defining a function named 'testWidgets'. - undefined_function
+  error - example/test/widget_test.dart:14:49 - Undefined class 'WidgetTester'. Try changing the name to the name of an existing class, or creating a class with the name 'WidgetTester'. - undefined_class
+  error - example/test/widget_test.dart:16:35 - The name 'MyApp' isn't a class. Try correcting the name to match an existing class. - creation_with_non_type
+  error - example/test/widget_test.dart:19:5 - The function 'expect' isn't defined. Try importing the library that defines 'expect', correcting the name to the name of an existing function, or defining a function named 'expect'. - undefined_function
+  error - example/test/widget_test.dart:19:12 - Undefined name 'find'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:19:28 - Undefined name 'findsOneWidget'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:20:5 - The function 'expect' isn't defined. Try importing the library that defines 'expect', correcting the name to the name of an existing function, or defining a function named 'expect'. - undefined_function
+  error - example/test/widget_test.dart:20:12 - Undefined name 'find'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:20:28 - Undefined name 'findsNothing'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:23:22 - Undefined name 'find'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:23:34 - Undefined name 'Icons'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:27:5 - The function 'expect' isn't defined. Try importing the library that defines 'expect', correcting the name to the name of an existing function, or defining a function named 'expect'. - undefined_function
+  error - example/test/widget_test.dart:27:12 - Undefined name 'find'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:27:28 - Undefined name 'findsNothing'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:28:5 - The function 'expect' isn't defined. Try importing the library that defines 'expect', correcting the name to the name of an existing function, or defining a function named 'expect'. - undefined_function
+  error - example/test/widget_test.dart:28:12 - Undefined name 'find'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - example/test/widget_test.dart:28:28 - Undefined name 'findsOneWidget'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+
+20 issues found.
+Analyzing inno.dart, iss_generator.dart, file_flag.dart, task_flag.dart...
+No issues found!
+Analyzing icon_flag.dart, config.dart, pubspec_manager.dart...
+No issues found!
+
+Import Sorter............................................................Passed
+Check valid changelog current version....................................Passed
