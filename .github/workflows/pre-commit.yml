@@ -56,19 +56,4 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         event: REQUEST_CHANGES
-        body: |
-          ## ❌ Pre-commit Hooks Failed
-
-          Some pre-commit hooks have failed. Please fix the following issues before committing:
-
-          ```bash
-          [error log file]
-          ```
-
-          To automatically fix issues (if possible), run:
-
-          ```bash
-          pre-commit run --all-files
-          ```
-
-          Ensure that pre-commit is installed and configured in your Git hooks to maintain code consistency. For additional help, please refer to the [CONTRIBUTING.md](https://github.com/izzalDev/inno_build/blob/main/CONTRIBUTING.md) file.
+        body: test aja
