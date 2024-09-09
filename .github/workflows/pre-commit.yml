@@ -1,59 +1,45 @@
-name: Run Pre-commit Checks and Review Pull Requests
+name: Pre-commit Check
 
 on:
-  pull_request_target:
-    types: [opened, synchronize]
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
 
 jobs:
-  reformat:
+  precommit:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Set Up Dart
-      uses: subosito/flutter-action@v2
-
-    - name: Install Dependencies
+    - name: Install Pre-commit
       run: |
-        flutter pub get
-        python -m pip install pre-commit
+        pip install pre-commit
+        pre-commit install
 
-    - name: Run pre-commit hooks
+    - name: Run Pre-commit and Check for Failures
       run: |
-        pre-commit install-hooks
-        pre-commit run --all-files
+        pre-commit run --all-files | tee pre_commit_output.txt
+        if grep -q "Failed" pre_commit_output.txt; then
+          echo "Pre-commit checks failed. Exiting..."
+          exit 1
+        fi
 
-    # - name: Run pre-commit hooks
-    #   id: pre-commit
-    #   run: |
-    #     # Run the pre-commit hooks and capture the output and exit code
-    #     pre_commit_output=$(pre-commit run --all-files 2>&1)
-    #     pre_commit_exit_code=$?
-
-    #     # Save the output and exit code as environment variables
-    #     echo "PRE_COMMIT_OUTPUT<<EOF" >> $GITHUB_ENV
-    #     echo "$pre_commit_output" >> $GITHUB_ENV
-    #     echo "EOF" >> $GITHUB_ENV
-    #     echo "PRE_COMMIT_EXIT_CODE=$pre_commit_exit_code" >> $GITHUB_ENV
-
-    - name: Display pre-commit output
+    - name: Generate Pre-commit Report
+      if: failure()
       run: |
-        echo "Pre-commit output:"
-        echo "$PRE_COMMIT_OUTPUT"
-
-    - name: Fail the build if pre-commit hooks failed
-      if: ${{ env.PRE_COMMIT_EXIT_CODE != 0 }}
-      run: |
-        echo "Pre-commit hooks failed with exit code $PRE_COMMIT_EXIT_CODE"
-        exit $PRE_COMMIT_EXIT_CODE
+        sed '/<pre_commit_output>/r pre_commit_output.log' .github/pre-commit.md \
+        | sed '/<pre_commit_output>/d' \
+        > temp.md
+        mv temp.md .github/pre-commit.md
 
     - name: Review Pre-commit Results
       if: failure()
-      uses: andrewmusgrave/automatic-pull-request-review@0.0.5
+      uses: thollander/actions-comment-pull-request@v2
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        event: REQUEST_CHANGES
-        body: test aja
+        filePath: .github/pre-commit.md
+        reactions: heart
