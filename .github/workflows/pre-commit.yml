@@ -16,11 +16,12 @@ jobs:
       uses: subosito/flutter-action@v2
 
     - name: Install dependencies
-      run: flutter pub get
+      run: |
+        flutter pub get
+        python -m pip install pre-commit
 
-    - uses: pre-commit/action@v3.0.1
-      with:
-        extra_args: run --all-files
+    - name: Run Precommit
+      run: pre-commit run --all-file
 
     - name: Check for changes
       id: git-check
@@ -33,5 +34,5 @@ jobs:
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
         git add .
-        git commit -m 'Automated code reformat'
+        git commit -m '[pre-commit] pre-commit update'
         git push
