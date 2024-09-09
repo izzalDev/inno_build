@@ -21,17 +21,22 @@ jobs:
         python -m pip install pre-commit
 
     - name: Run pre-commit hooks
-      id: pre-commit
       run: |
-        # Run the pre-commit hooks and capture the output and exit code
-        pre_commit_output=$(pre-commit run --all-files 2>&1)
-        pre_commit_exit_code=$?
+        pre-commit install-hooks
+        pre-commit run --all-files
 
-        # Save the output and exit code as environment variables
-        echo "PRE_COMMIT_OUTPUT<<EOF" >> $GITHUB_ENV
-        echo "$pre_commit_output" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
-        echo "PRE_COMMIT_EXIT_CODE=$pre_commit_exit_code" >> $GITHUB_ENV
+    # - name: Run pre-commit hooks
+    #   id: pre-commit
+    #   run: |
+    #     # Run the pre-commit hooks and capture the output and exit code
+    #     pre_commit_output=$(pre-commit run --all-files 2>&1)
+    #     pre_commit_exit_code=$?
+
+    #     # Save the output and exit code as environment variables
+    #     echo "PRE_COMMIT_OUTPUT<<EOF" >> $GITHUB_ENV
+    #     echo "$pre_commit_output" >> $GITHUB_ENV
+    #     echo "EOF" >> $GITHUB_ENV
+    #     echo "PRE_COMMIT_EXIT_CODE=$pre_commit_exit_code" >> $GITHUB_ENV
 
     - name: Display pre-commit output
       run: |
