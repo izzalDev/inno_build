@@ -20,7 +20,7 @@ jobs:
 
     - uses: pre-commit/action@v3.0.1
       with:
-        args: --all-files
+        extra_args: --all-files
 
     - name: Check for changes
       id: git-check
