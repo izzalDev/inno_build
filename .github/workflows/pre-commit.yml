@@ -1,4 +1,4 @@
-name: Reformat and Update Pull Request
+name: Run Pre-commit Checks and Review Pull Requests
 
 on:
   pull_request_target:
@@ -9,29 +9,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Set up Dart
+    - name: Set Up Dart
       uses: subosito/flutter-action@v2
 
-    - name: Install dependencies
+    - name: Install Dependencies
       run: |
         flutter pub get
         python -m pip install pre-commit
 
-    - name: Run Precommit
+    - name: Run Pre-commit Hooks
       id: pre-commit
       run: |
         pre_commit_output=$(pre-commit run --all-files)
-        echo "pre_commit_output=$pre_commit_output" >> "$GITHUB_OUTPUT"
-        echo $pre_commit_output
+        echo "$pre_commit_output"  # Print output to the console
+        echo "PRE_COMMIT_OUTPUT<<EOF" >> $GITHUB_ENV
+        echo "$pre_commit_output" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
-    - name: Precommit review
+    - name: Review Pre-commit Results
       if: failure()
       uses: golfzaptw/action-auto-reviews-from-branches@master
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         EVENT_TYPE: REQUEST_CHANGES
         MESSAGE: |
           ## ❌ Pre-commit Hooks Failed
@@ -39,13 +41,13 @@ jobs:
           Some pre-commit hooks have failed. Please fix the following issues before committing:
 
           ```bash
-          ${{ steps.pre-commit.outputs.pre_commit_output }}
+          ${{ env.PRE_COMMIT_OUTPUT }}
           ```
 
-          Run the following command to fix issues automatically (if available) and reproduce output shown above, run:
+          To automatically fix issues (if possible), run:
 
           ```bash
           pre-commit run --all-files
           ```
 
-          Ensure that pre-commit is installed and configured in your Git hooks to maintain code consistency. For additional help, please refer to the [CONTRIBUTING.md](https://github.com/izzalDev/inno_build/blob/main/CONTRIBUTE.md) file.
+          Ensure that pre-commit is installed and configured in your Git hooks to maintain code consistency. For additional help, please refer to the [CONTRIBUTING.md](https://github.com/izzalDev/inno_build/blob/main/CONTRIBUTING.md) file.
