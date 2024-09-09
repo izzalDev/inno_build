@@ -29,5 +29,4 @@ jobs:
         git diff --exit-code || echo "changes=true" >> "$GITHUB_OUTPUT"
 
     - name: Commit changes
-      if: steps.git-check.outputs.changes == true
       uses: stefanzweifel/git-auto-commit-action@v5
