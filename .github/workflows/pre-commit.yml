@@ -25,13 +25,15 @@ jobs:
           cache: true
       - run: flutter pub get
       - uses: pre-commit/action@v3.0.1
+        id: precommit
       - uses: EndBug/add-and-commit@v9
-        id: commit-change
+        if: steps.precommit == 'failure'
+        id: commit_changes
         with:
           message: \[pre-commit\] auto update
 
       - name: Review Pre-commit Results
-        if: steps.commit-change.conclusion == 'failure'
+        if: steps.commit_changes.conclusion == 'failure'
         uses: thollander/actions-comment-pull-request@v2
         with:
           filePath: .github/pre_commit_failed.md
