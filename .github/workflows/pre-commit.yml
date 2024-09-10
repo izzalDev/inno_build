@@ -12,15 +12,26 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+      - run: |
+          echo ${{ github.event.pull_request.head.repo.full_name }}
+          echo ${{ github.event.pull_request.head.ref }}
       - uses: actions/setup-python@v3
       - uses: subosito/flutter-action@v2
         with:
           cache: true
       - run: flutter pub get
       - uses: pre-commit/action@v3.0.1
+      - uses: EndBug/add-and-commit@v9
+        id: commit-change
+        with:
+          message: \[pre-commit\] auto update
+
       - name: Review Pre-commit Results
-        if: failure()
+        if: steps.commit-change.conclusion == 'failure'
         uses: thollander/actions-comment-pull-request@v2
         with:
           filePath: .github/pre_commit_failed.md
