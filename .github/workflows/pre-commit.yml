@@ -27,7 +27,7 @@ jobs:
       - uses: pre-commit/action@v3.0.1
         id: precommit
       - uses: EndBug/add-and-commit@v9
-        if: steps.precommit == 'failure'
+        if: steps.precommit.conclusion == 'failure'
         id: commit_changes
         with:
           message: \[pre-commit\] auto update
