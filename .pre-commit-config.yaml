@@ -2,9 +2,21 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-      - id: check-yaml
-      - id: end-of-file-fixer
       - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-yaml
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: pretty-format-json
+      - id: file-contents-sorter
+      - id: check-added-large-files
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: sort-simple-yaml
+      - id: detect-private-key
+      - id: forbid-submodules
 
   - repo: local
     hooks:

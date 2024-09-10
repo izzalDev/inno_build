@@ -1,4 +1,4 @@
-﻿; bovirus@gmail.com
+; bovirus@gmail.com
 ; *** Inno Setup version 6.1.0+ Italian messages ***
 ;
 ; To download user-contributed translations of this file, go to:

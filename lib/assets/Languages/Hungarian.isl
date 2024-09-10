@@ -1,4 +1,4 @@
-﻿; *** Inno Setup version 6.1.0+ Hungarian messages ***
+; *** Inno Setup version 6.1.0+ Hungarian messages ***
 ;	Based on the translation of Kornél Pál, kornelpal@gmail.com
 ;	István Szabó, E-mail: istvanszabo890629@gmail.com
 ;
