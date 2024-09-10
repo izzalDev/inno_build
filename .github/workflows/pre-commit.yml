@@ -23,5 +23,5 @@ jobs:
         if: failure()
         uses: thollander/actions-comment-pull-request@v2
         with:
-          filePath: .github/pre-commit.md
+          filePath: .github/pre_commit_failed.md
           reactions: eyes
