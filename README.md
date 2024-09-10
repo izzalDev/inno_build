@@ -13,18 +13,20 @@
 ## Installation
 
 1. Add `inno_build` to your Flutter project dependencies:
-    ```bash
-    flutter pub add inno_build
-    ```
+
+   ```bash
+   flutter pub add inno_build
+   ```
 
 2. Ensure your Flutter project is up-to-date:
-    ```bash
-    flutter pub get
-    ```
+   ```bash
+   flutter pub get
+   ```
 
 ## Usage
 
 Run `inno_build` to create the installer:
+
 ```bash
 dart run inno_build
 ```
@@ -47,3 +49,12 @@ If you'd like to contribute to this project, please follow these steps:
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+
+
+
+
+
+
+
+
