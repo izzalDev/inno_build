@@ -11,7 +11,6 @@ permissions:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout pull request repository
         uses: actions/checkout@v4
@@ -31,22 +30,24 @@ jobs:
         run: flutter pub get
 
       - name: Run initial pre-commit action
+        if: always()
         uses: pre-commit/action@v3.0.1
         id: first_pre_commit
 
       - name: Run pre-commit checks on all files
+        if: always()
         run: pre-commit run --all-files
         id: pre_commit
 
       - name: Commit pre-commit changes on success
         uses: stefanzweifel/git-auto-commit-action@v5
         id: commit_changes
-        if: steps.pre_commit.conclusion == 'success'
+        if: failure() && steps.pre_commit.conclusion == 'success'
         with:
           commit_message: "[pre-commit] Update pre-commit changes"
 
       - name: Comment on failed commit or pre-commit check
-        if: steps.commit_changes.conclusion == 'failure' || steps.pre_commit.conclusion == 'failure'
+        if: failure() && steps.commit_changes.conclusion == 'failure' || failure() && steps.pre_commit.conclusion == 'failure'
         uses: thollander/actions-comment-pull-request@v2
         with:
           filePath: .github/pre_commit_failed.md
