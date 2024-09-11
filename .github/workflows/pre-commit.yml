@@ -1,4 +1,4 @@
-name: pre-commit
+name: Pre-Commit Workflow
 
 on:
   pull_request_target:
@@ -11,29 +11,42 @@ permissions:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout pull request repository
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
-      - run: |
-          echo ${{ github.event.pull_request.head.repo.full_name }}
-          echo ${{ github.event.pull_request.head.ref }}
-      - uses: actions/setup-python@v3
-      - uses: subosito/flutter-action@v2
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v3
+
+      - name: Set up Flutter environment
+        uses: subosito/flutter-action@v2
         with:
           cache: true
-      - run: flutter pub get
-      - uses: pre-commit/action@v3.0.1
-        id: precommit
-      - uses: EndBug/add-and-commit@v9
-        if: always()
-        id: commit_changes
-        with:
-          message: \[pre-commit\] auto update
 
-      - name: Review Pre-commit Results
-        if: always()
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      - name: Run initial pre-commit action
+        uses: pre-commit/action@v3.0.1
+        id: first_pre_commit
+
+      - name: Run pre-commit checks on all files
+        run: pre-commit run --all-files
+        id: pre_commit
+
+      - name: Commit pre-commit changes on success
+        uses: stefanzweifel/git-auto-commit-action@v5
+        id: commit_changes
+        if: steps.pre_commit.conclusion == 'success'
+        with:
+          commit_message: "[pre-commit] Update pre-commit changes"
+
+      - name: Comment on failed commit or pre-commit check
+        if: steps.commit_changes.conclusion == 'failure' || steps.pre_commit.conclusion == 'failure'
         uses: thollander/actions-comment-pull-request@v2
         with:
           filePath: .github/pre_commit_failed.md
