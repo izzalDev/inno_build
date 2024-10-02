@@ -1,3 +1,8 @@
+## 0.3.0
+
+### Changed
+- Improved logging verbosity for better debugging. [#50](https://github.com/izzalDev/inno_build/pull/50)
+
 ## 0.2.0
 
 [Detailed changes](https://github.com/izzalDev/inno_build/compare/b3c81a8332abe5f365a222189d6b8b6fb14dcfc8...df778636f0700aa80fa858df9ebb75ab3a600000)
