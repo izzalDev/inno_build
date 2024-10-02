@@ -49,13 +49,11 @@ class FlutterBuilder {
   /// The method returns the exit code of the `flutter build` command.
   Future<int> buildApp() async {
     final mode = buildMode.name;
+    List<String> args = ['build', 'windows', '--$mode'];
+    if (verbose) args.add('--verbose');
     final process = await Process.start(
       "flutter",
-      [
-        'build',
-        'windows',
-        '--$mode',
-      ],
+      args,
       runInShell: true,
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     );

@@ -56,7 +56,7 @@ Future<void> main(List<String> arguments) async {
   final pubspecManager = PubspecManager();
   final appIdService = AppIdService(pubspecManager);
   final dependencyManager = DependencyManager(verbose: verbose);
-  final flutterBuilder = FlutterBuilder(buildMode);
+  final flutterBuilder = FlutterBuilder(buildMode, verbose: verbose);
   final innoSetupManager =
       InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
   final spinner = CliSpin();

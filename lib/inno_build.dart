@@ -232,6 +232,7 @@ class InnoBuild {
   /// application using the `flutter build` command.
   Future<void> _buildFlutterApp() async {
     spinner.start('Building Flutter Windows application...');
+    if (argResults['verbose']) spinner.stopAndPersist();
     final exitCode = await flutterBuilder.buildApp();
     if (exitCode == 0) {
       spinner.success('Built ${buildMode.buildPath}\\${Config.execName}.');
