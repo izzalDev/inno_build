@@ -30,4 +30,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Vuepress
 node_modules/
+node_modules/
+.cache/
+.temp/
+dist/
+docs/
+package.json
+package-lock.json
