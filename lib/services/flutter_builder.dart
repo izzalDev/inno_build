@@ -54,7 +54,6 @@ class FlutterBuilder {
     final process = await Process.start(
       "flutter",
       args,
-      runInShell: true,
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     );
     return process.exitCode;
