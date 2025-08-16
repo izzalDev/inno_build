@@ -6,6 +6,7 @@ import 'dart:io';
 // Package imports:
 import 'package:args/args.dart';
 import 'package:cli_spin/cli_spin.dart';
+
 // Project imports:
 import 'package:inno_build/inno_build.dart';
 import 'package:inno_build/models/build_mode.dart';
@@ -28,7 +29,6 @@ Future<void> main(List<String> arguments) async {
     ..addFlag('skip-flutter-build', help: 'Skip the Flutter build step.')
     ..addFlag('help', abbr: 'h', help: 'Show this help message.')
     ..addFlag('version', help: 'Show version information.')
-
     ..addFlag('obfuscate', help: 'Obfuscate the Dart code during the build.')
     ..addOption('split-debug-info',
         help: 'Path to store split debug info files.')
@@ -36,7 +36,6 @@ Future<void> main(List<String> arguments) async {
         help: 'Pass additional key-value pairs to the Dart compiler.')
     ..addOption('target',
         abbr: 't', help: 'The main entry-point file of the application.')
-
     ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output.')
     ..addFlag('quiet', abbr: 'q', help: 'Suppress output (quiet mode).');
 
@@ -69,7 +68,7 @@ Future<void> main(List<String> arguments) async {
   final appIdService = AppIdService(pubspecManager);
   final dependencyManager = DependencyManager(verbose: verbose);
   final innoSetupManager =
-  InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
+      InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
   final spinner = CliSpin(isSilent: quiet);
 
   final appLogic = InnoBuild(
