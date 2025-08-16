@@ -73,7 +73,8 @@ class InnoBuild {
           'Error: --release, --debug, and --install-inno cannot be used together.');
     }
     if (argResults['verbose'] && argResults['quiet']) {
-      throw ArgumentError('Error: --verbose and --quiet cannot be used together.');
+      throw ArgumentError(
+          'Error: --verbose and --quiet cannot be used together.');
     }
   }
 
@@ -128,7 +129,8 @@ class InnoBuild {
     if (exitCode == 0) {
       spinner.success('Built ${buildMode.buildPath}\\${Config.execName}.');
     } else {
-      spinner.fail('Failed to build Flutter application. Check the logs above for details.');
+      spinner.fail(
+          'Failed to build Flutter application. Check the logs above for details.');
     }
   }
 
