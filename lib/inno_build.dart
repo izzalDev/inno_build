@@ -1,3 +1,5 @@
+// lib/inno_build.dart
+
 // Dart imports:
 import 'dart:io';
 
@@ -30,15 +32,44 @@ const List<String> _flutterBuildOptions = [
 ];
 
 /// This class is the main entry point of the `inno_build` command-line tool.
+///
+/// It takes the parsed command-line arguments, and uses them to determine what
+/// actions to take. The actions are:
+/// 1. Generate a new App ID if the user specified the `--app-id` flag.
+/// 2. Build the Flutter Windows application using the `flutter build` command.
+/// 3. Build the Inno Setup script using the `inno_setup_manager` service.
+/// 4. Compile the Inno Setup script using the `inno_setup_manager` service.
 class InnoBuild {
+  /// The parsed command-line arguments.
   final ArgResults argResults;
+
+  /// An instance of the `PubspecManager` class.
   final PubspecManager pubspecManager;
+
+  /// An instance of the `AppIdService` class.
   final AppIdService appIdService;
+
+  /// An instance of the `DependencyManager` class.
   final DependencyManager dependencyManager;
+
+  /// An instance of the `InnoSetupManager` class.
   final InnoSetupManager innoSetupManager;
+
+  /// An instance of the `CliSpin` class.
   final CliSpin spinner;
+
+  /// The build mode specified by the user.
   final BuildMode buildMode;
 
+  /// Creates an instance of the `inno_build` command-line tool.
+  ///
+  /// The [argResults] parameter is the parsed command-line arguments.
+  /// The [pubspecManager] parameter is an instance of the `PubspecManager`.
+  /// The [appIdService] parameter is an instance of the `AppIdService`.
+  /// The [dependencyManager] parameter is an instance of the `DependencyManager`.
+  /// The [innoSetupManager] parameter is an instance of the `InnoSetupManager`.
+  /// The [spinner] parameter is an instance of the `CliSpin` class.
+  /// The [buildMode] parameter is the build mode that the user specified.
   InnoBuild({
     required this.argResults,
     required this.pubspecManager,
@@ -50,6 +81,9 @@ class InnoBuild {
   });
 
   /// Runs the `inno_build` command-line tool.
+  ///
+  /// This method takes no arguments and returns a `Future` that completes when
+  /// the tool has finished running.
   Future<void> run() async {
     _validateFlags();
     if (argResults['install-inno']) {
@@ -65,6 +99,9 @@ class InnoBuild {
   }
 
   /// Validates the command-line flags.
+  ///
+  /// This method is called by the `run` method and checks that the user has not
+  /// provided any invalid combinations of flags.
   void _validateFlags() {
     if (argResults['debug'] &&
         argResults['release'] &&
@@ -73,7 +110,8 @@ class InnoBuild {
           'Error: --release, --debug, and --install-inno cannot be used together.');
     }
     if (argResults['verbose'] && argResults['quiet']) {
-      throw ArgumentError('Error: --verbose and --quiet cannot be used together.');
+      throw ArgumentError(
+          'Error: --verbose and --quiet cannot be used together.');
     }
   }
 
@@ -89,6 +127,10 @@ class InnoBuild {
   }
 
   /// Handles generating a new App ID if the user specified the `--app-id` flag.
+  ///
+  /// This method is called by the `run` method and checks if the user has
+  /// specified the `--app-id` flag. If so, it generates a new App ID and updates
+  /// the `pubspec.yaml` file with it.
   Future<void> _handleAppId() async {
     if (argResults['app-id'] != null) {
       spinner.start('Generating new App ID...');
@@ -112,6 +154,9 @@ class InnoBuild {
   }
 
   /// Builds the Flutter Windows application using the `flutter build` command.
+  ///
+  /// This method is called by the `run` method and builds the Flutter Windows
+  /// application using the `flutter build` command.
   Future<void> _buildFlutterApp() async {
     spinner.start('Building Flutter Windows application...');
 
@@ -128,11 +173,15 @@ class InnoBuild {
     if (exitCode == 0) {
       spinner.success('Built ${buildMode.buildPath}\\${Config.execName}.');
     } else {
-      spinner.fail('Failed to build Flutter application. Check the logs above for details.');
+      spinner.fail(
+          'Failed to build Flutter application. Check the logs above for details.');
     }
   }
 
   /// Downloads Inno Setup if it is not already installed.
+  ///
+  /// This method is called by the `run` method and downloads Inno Setup if it is
+  /// not already installed.
   Future<void> _downloadInnoSetup() async {
     spinner.start('Downloading Inno Setup...');
     final download = await dependencyManager.ensureInnoSetupDownloaded();
@@ -145,6 +194,9 @@ class InnoBuild {
   }
 
   /// Installs Inno Setup if it is not already installed.
+  ///
+  /// This method is called by the `run` method and installs Inno Setup if it is
+  /// not already installed.
   Future<void> _installInnoSetup() async {
     if (File(innoSetupInstallerPath).existsSync()) {
       spinner.start('Installing Inno Setup...');
@@ -167,6 +219,9 @@ class InnoBuild {
   }
 
   /// Builds the Inno Setup script using the `inno_setup_manager` service.
+  ///
+  /// This method is called by the `run` method and builds the Inno Setup script
+  /// using the `inno_setup_manager` service.
   Future<void> _buildInnoSetupScript() async {
     spinner.start('Building Inno Setup script...');
     try {
@@ -179,6 +234,9 @@ class InnoBuild {
   }
 
   /// Compiles the Inno Setup script using the `inno_setup_manager` service.
+  ///
+  /// This method is called by the `run` method and compiles the Inno Setup script
+  /// using the `inno_setup_manager` service.
   Future<void> _compileInnoSetupScript() async {
     spinner.start('Compiling Inno Setup script...');
     if (argResults['verbose']) {

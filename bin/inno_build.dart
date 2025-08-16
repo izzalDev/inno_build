@@ -1,3 +1,5 @@
+// bin/inno_build.dart
+
 // Dart imports:
 import 'dart:io';
 
@@ -13,6 +15,7 @@ import 'package:inno_build/services/inno_setup_manager.dart';
 import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/pubspec_manager.dart';
 
+/// The main entry point for the Inno Build CLI.
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption('app-id', abbr: 'a', help: 'Generate a new InnoSetup AppID.')
@@ -27,9 +30,12 @@ Future<void> main(List<String> arguments) async {
     ..addFlag('version', help: 'Show version information.')
 
     ..addFlag('obfuscate', help: 'Obfuscate the Dart code during the build.')
-    ..addOption('split-debug-info', help: 'Path to store split debug info files.')
-    ..addMultiOption('dart-define', help: 'Pass additional key-value pairs to the Dart compiler.')
-    ..addOption('target', abbr: 't', help: 'The main entry-point file of the application.')
+    ..addOption('split-debug-info',
+        help: 'Path to store split debug info files.')
+    ..addMultiOption('dart-define',
+        help: 'Pass additional key-value pairs to the Dart compiler.')
+    ..addOption('target',
+        abbr: 't', help: 'The main entry-point file of the application.')
 
     ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output.')
     ..addFlag('quiet', abbr: 'q', help: 'Suppress output (quiet mode).');
@@ -84,6 +90,7 @@ Future<void> main(List<String> arguments) async {
   }
 }
 
+/// Determines the [BuildMode] based on the provided command-line arguments.
 BuildMode _determineBuildMode(ArgResults argResults) {
   if (argResults['debug']) {
     if (argResults['release']) {
