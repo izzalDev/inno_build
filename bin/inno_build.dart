@@ -4,13 +4,11 @@ import 'dart:io';
 // Package imports:
 import 'package:args/args.dart';
 import 'package:cli_spin/cli_spin.dart';
-
 // Project imports:
 import 'package:inno_build/inno_build.dart';
 import 'package:inno_build/models/build_mode.dart';
 import 'package:inno_build/services/app_id_service.dart';
 import 'package:inno_build/services/dependency_manager.dart';
-import 'package:inno_build/services/flutter_builder.dart';
 import 'package:inno_build/services/inno_setup_manager.dart';
 import 'package:inno_build/utils/constants.dart';
 import 'package:inno_build/utils/pubspec_manager.dart';
@@ -25,22 +23,28 @@ Future<void> main(List<String> arguments) async {
     ..addFlag('install-inno',
         abbr: 'i', help: 'Install Inno Setup if not present.')
     ..addFlag('skip-flutter-build', help: 'Skip the Flutter build step.')
-    ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output.')
-    ..addFlag('quiet', abbr: 'q', help: 'Suppress output (quiet mode).')
     ..addFlag('help', abbr: 'h', help: 'Show this help message.')
-    ..addFlag('version', help: 'Show version information.');
+    ..addFlag('version', help: 'Show version information.')
+
+    ..addFlag('obfuscate', help: 'Obfuscate the Dart code during the build.')
+    ..addOption('split-debug-info', help: 'Path to store split debug info files.')
+    ..addMultiOption('dart-define', help: 'Pass additional key-value pairs to the Dart compiler.')
+    ..addOption('target', abbr: 't', help: 'The main entry-point file of the application.')
+
+    ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output.')
+    ..addFlag('quiet', abbr: 'q', help: 'Suppress output (quiet mode).');
 
   final argResults = parser.parse(arguments);
 
   stdout.writeln(welcomeMessage);
 
   if (argResults['help']) {
-    print(helpMessage);
+    print(parser.usage);
     return;
   }
 
   if (argResults['version']) {
-    print('Inno Build CLI v1.0.0');
+    print('inno_build v1.0.0');
     return;
   }
 
@@ -54,12 +58,12 @@ Future<void> main(List<String> arguments) async {
 
   final buildMode = _determineBuildMode(argResults);
 
+  // Servislerin oluşturulması
   final pubspecManager = PubspecManager();
   final appIdService = AppIdService(pubspecManager);
   final dependencyManager = DependencyManager(verbose: verbose);
-  final flutterBuilder = FlutterBuilder(buildMode, verbose: verbose);
   final innoSetupManager =
-      InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
+  InnoSetupManager(buildMode, verbose: verbose, quiet: quiet);
   final spinner = CliSpin(isSilent: quiet);
 
   final appLogic = InnoBuild(
@@ -67,7 +71,6 @@ Future<void> main(List<String> arguments) async {
     pubspecManager: pubspecManager,
     appIdService: appIdService,
     dependencyManager: dependencyManager,
-    flutterBuilder: flutterBuilder,
     innoSetupManager: innoSetupManager,
     spinner: spinner,
     buildMode: buildMode,
@@ -76,8 +79,8 @@ Future<void> main(List<String> arguments) async {
   try {
     await appLogic.run();
   } catch (e) {
-    print(e);
-    exit(64); // Exit code for usage error
+    print('An error occurred: $e');
+    exit(1);
   }
 }
 
@@ -85,7 +88,7 @@ BuildMode _determineBuildMode(ArgResults argResults) {
   if (argResults['debug']) {
     if (argResults['release']) {
       print('Error: --release and --debug cannot be used together.');
-      exit(64); // Exit code for usage error
+      exit(64);
     }
     return BuildMode.debug;
   }
